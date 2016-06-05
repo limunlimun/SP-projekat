@@ -7,7 +7,7 @@ class Osoba{
 private: 
 std::string _ime;
 std::string _prezime;
-unsigned long int _jmbg;
+unsigned long int _jmbg=0; //za glumce,producente i scenariste ovo polje ce imati vrijednost 0
 public:
 Osoba()=default;
 Osoba(std::string ime,std::string prezime,unsigned long int jmbg):_ime(ime),_prezime(prezime),_jmbg(jmbg){};
