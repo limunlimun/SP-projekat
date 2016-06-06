@@ -12,7 +12,11 @@ public:
 Osoba()=default;
 Osoba(std::string ime,std::string prezime,unsigned long int jmbg):_ime(ime),_prezime(prezime),_jmbg(jmbg){};
 ~Osoba()=default;
-
+Osoba(const Osoba & o){
+  _ime=o._ime;
+  _prezime=o._prezime;
+  _jmbg=o._jmbg;
+}
 std::string getIme(){return _ime;};
 std::string getPrezime(){return _prezime;}
 unsigned long int getJMBG(){return _jmbg;}
