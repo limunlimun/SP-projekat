@@ -16,9 +16,10 @@ class Film{
     std::string prod_komp;//produkcijska kompanija
     unsigned int god_izdavanja;//godina izdavanja
     unsigned int broj_kopija;
+    int serijski;//jedinstveni kljuc ukoliko postoji vise filmova sa istim imenom
   public:
     Film()=default;
-    Film(std::string naziv,std::string opis,Osoba rez,ListaNizom<Osoba> lp,ListaNizom<Osoba> ls,ListaNizom<Osoba> lg,std::string komp,unsigned int godizd,unsigned int brkop):_naziv(naziv),_opis(opis),_reziser(rez),lista_producenata(lp),lista_scenarista(ls),lista_glumaca(lg),prod_komp(komp),god_izdavanja(godizd),broj_kopija(brkop){};
+    Film(std::string naziv,std::string opis,Osoba rez,ListaNizom<Osoba> lp,ListaNizom<Osoba> ls,ListaNizom<Osoba> lg,std::string komp,unsigned int godizd,unsigned int brkop,int ser):_naziv(naziv),_opis(opis),_reziser(rez),lista_producenata(lp),lista_scenarista(ls),lista_glumaca(lg),prod_komp(komp),god_izdavanja(godizd),broj_kopija(brkop),serijski(ser){};
     ~Film()=default;
    
     std::string getNaziv(){return _naziv;}
@@ -30,6 +31,7 @@ class Film{
     std::string getKompanija(){return prod_komp;}
     unsigned int getGodIzdavanja(){return god_izdavanja;}
     unsigned int getBrKopija(){return broj_kopija;}
+    int getSerijski(){return serijski;}
 };
 
 #endif
