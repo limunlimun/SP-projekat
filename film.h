@@ -34,6 +34,15 @@ class Film{
     unsigned int getBrKopija(){return broj_kopija;}
     int getSerijski(){return serijski;}
 
+    void setNaziv(std::string x){_naziv=x;}
+    void setOpis(std::string x){_opis=x;}
+    //nedostaje reziser i setovanje listi
+    //potrebno u klasu osoba dodati konstruktos Osoba(Osoba)
+    void setKompanija(std::string x){prod_komp=x;}
+    void setGodIzd(int x){god_izdavanja=x;}
+    void setBrKopija(int x){broj_kopija=x;}
+    void setSerijski(int x){serijski=x;}
+
     void printFilm(){
       cout<<setw(4);
       cout<<"Naziv: "<<_naziv<<endl;
