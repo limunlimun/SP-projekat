@@ -18,6 +18,19 @@ Osoba(const Osoba & o){
   _prezime=o._prezime;
   _jmbg=o._jmbg;
 }
+void operator=(const Osoba & o){
+  _ime=o._ime;
+  _prezime=o._prezime;
+  _jmbg=o._jmbg;
+}
+void operator=(Osoba&& o)
+{
+	
+  _ime=std::move(o._ime);
+  _prezime=std::move(o._prezime);
+  _jmbg=std::move(o._jmbg);
+}
+
 std::string getIme(){return _ime;};
 std::string getPrezime(){return _prezime;}
 unsigned long int getJMBG(){return _jmbg;}
