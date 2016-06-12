@@ -13,6 +13,7 @@ int main(){
   if (!admin.login(ime,lozinka)) {cout<<"Pogresan unos.Program se terminira!"<<endl;
   return 0;
 }
+else{
   int izlaz=0;
   int odabir=0;
   while(izlaz!=1){
@@ -35,9 +36,27 @@ int main(){
     cout<<endl<<"Unesite broj odabrane opcije: ";
     cin.clear();
     cin>>odabir;
-    
+    switch(odabir){
+      case 1 : break;
+      case 2 : break;
+      case 3 : break;
+      case 4 : break;
+      case 5 : break;
+      case 6 : break;
+      case 7 : break;
+      case 8 : break;
+      case 9 : break;
+      case 10 : break;
+      case 11 : break;
+      case 12 : break;
+      case 13 : break;
+      case 14 : izlaz=1;
+                break;
+      default : cout<<"Pogresan unos. Pokusajte ponovo"<<endl;
+                break;
+    } 
 
 
   }
 
-}
+}}
