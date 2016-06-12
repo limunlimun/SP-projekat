@@ -54,7 +54,31 @@ class Film{
     void setGodIzd(int x){god_izdavanja=x;}
     void setBrKopija(int x){broj_kopija=x;}
     void setSerijski(int x){serijski=x;}
-
+	void operator=(const Film& x)
+	{
+		this->_naziv=x._naziv;
+		this->lista_glumaca=x.lista_glumaca;
+		this->lista_producenata=x.lista_producenata;
+		this->lista_scenarista=x.lista_scenarista;
+		this->god_izdavanja=x.god_izdavanja;
+		this->broj_kopija=x.broj_kopija;
+		this->prod_komp=x.prod_komp;
+		this->_opis=x._opis;
+		this->_reziser=x._reziser;
+	}
+	
+	void operator=(Film&& x)
+	{
+		this->_naziv=std::move(x._naziv);
+		this->lista_glumaca=std::move(x.lista_glumaca);
+		this->lista_producenata=std::move(x.lista_producenata);
+		this->lista_scenarista=std::move(x.lista_scenarista);
+		this->god_izdavanja=std::move(x.god_izdavanja);
+		this->broj_kopija=std::move(x.broj_kopija);
+		this->prod_komp=std::move(x.prod_komp);
+		this->_opis=std::move(x._opis);
+		this->_reziser=std::move(x._reziser);
+	}
     void printFilm(){
       cout<<setw(4);
       cout<<"Naziv: "<<_naziv<<endl;
