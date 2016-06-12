@@ -22,6 +22,18 @@ class Film{
     Film()=default;
     Film(std::string naziv,std::string opis,Osoba rez,ListaNizom<Osoba> lp,ListaNizom<Osoba> ls,ListaNizom<Osoba> lg,std::string komp,unsigned int godizd,unsigned int brkop,int ser):_naziv(naziv),_opis(opis),_reziser(rez),lista_producenata(lp),lista_scenarista(ls),lista_glumaca(lg),prod_komp(komp),god_izdavanja(godizd),broj_kopija(brkop),serijski(ser){};
     ~Film()=default;
+    Film(Film &f){
+      _naziv=f._naziv;
+      _opis=f._opis;
+      _reziser=f._reziser;
+      lista_producenata=f.lista_producenata;
+      lista_scenarista=f.lista_scenarista;
+      lista_glumaca=f.lista_glumaca;
+      prod_komp=f.prod_komp;
+      god_izdavanja=f.god_izdavanja;
+      broj_kopija=f.broj_kopija;
+      serijski=f.serijski;
+    }
    
     std::string getNaziv(){return _naziv;}
     std::string getOpis(){return _opis;}
