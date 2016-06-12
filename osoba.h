@@ -2,7 +2,7 @@
 #define _OSOBA_H
 
 #include <string>
-
+#include <iostream>
 class Osoba{
 private: 
 std::string _ime;
@@ -20,6 +20,10 @@ Osoba(const Osoba & o){
 std::string getIme(){return _ime;};
 std::string getPrezime(){return _prezime;}
 unsigned long int getJMBG(){return _jmbg;}
+
+void printOsoba(){
+  std::cout<<_ime<<" "<<_prezime;
+}
 };
 
 #endif

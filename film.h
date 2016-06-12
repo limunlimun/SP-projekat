@@ -1,5 +1,6 @@
 #ifndef _FILM_H
 #define _FILM_H
+#include <iomanip>
 
 #include "lista.hxx"
 #include "osoba.h"
@@ -32,6 +33,39 @@ class Film{
     unsigned int getGodIzdavanja(){return god_izdavanja;}
     unsigned int getBrKopija(){return broj_kopija;}
     int getSerijski(){return serijski;}
+
+    void printFilm(){
+      cout<<setw(4);
+      cout<<"Naziv: "<<_naziv<<endl;
+      cout<<setw(4);
+      cout<<"Opis: "<<_opis<<endl;
+      cout<<setw(4); 
+      cout<<"Reziser: "; _reziser.printOsoba(); cout<<endl;
+      cout<<setw(4); 
+      cout<<"Producenti: ";
+      for(int i=0;i<lista_producenata.velicina();i++){
+        lista_producenata.dohvatiEl(i).printOsoba();
+        cout<<" ";} cout<<endl;
+      cout<<setw(4);
+      cout<<"Scenaristi: ";
+      for(int i=0;i<lista_scenarista.velicina();i++){
+        lista_scenarista.dohvatiEl(i).printOsoba();
+        cout<<" ";} cout<<endl;
+      cout<<setw(4);
+      cout<<"Glumci: ";
+      for(int i=0;i<lista_glumaca.velicina();i++){
+        lista_glumaca.dohvatiEl(i).printOsoba();
+      cout<<" ";} cout<<endl;
+      cout<<setw(4);
+      cout<<"Produkcijska kompanija: "<<prod_komp<<endl;
+      cout<<setw(4);
+      cout<<"Godina izdavanja: "<<god_izdavanja<<endl;
+      cout<<setw(4);
+      cout<<"Broj kopija: "<<broj_kopija<<endl;
+      cout<<setw(4);
+      cout<<"Serijski broj: "<<serijski<<endl;
+}
+
 };
 
 #endif
