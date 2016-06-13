@@ -9,7 +9,7 @@ class listaFilmova{
   public:
     listaFilmova()=default;
     ~listaFilmova()=default;
-
+    int trenutnoStanje();
     void print();
     int pretrazi(std::string ime,int ispis=0);
     void pregledFilma(std::string ime);
@@ -19,8 +19,13 @@ class listaFilmova{
     void dodajFilm(Film f);
     void ukloniFilm(int serial);
     void azurirajFilm(int serial);
-
+    
+    ListaNizom<Film> getFilmovi(){return filmovi;}
 };
+
+int listaFilmova::trenutnoStanje(){
+  return filmovi.velicina();
+}
 
 Film kreirajFilm(){
   cout<<"Unesite naziv filma: ";
