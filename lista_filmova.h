@@ -16,6 +16,7 @@ class listaFilmova{
     void posudiFilm(int serial);
     void vratiFilm(int serial);
     void dodajFilm();
+    void dodajFilm(Film f);
     void ukloniFilm(int serial);
     void azurirajFilm();
 
@@ -121,6 +122,15 @@ void listaFilmova::vratiFilm(int serial){
   if(provjera==0) std::cout<<"Film se ne nalazi u videoteci."<<endl;
 }
 
+void listaFilmova::dodajFilm(Film f){
+  if(filmovi.velicina()==filmovi.maxVelicina()){cout<<"Videoteka je puna."<<endl;return;}
+  for(int i=0;i<filmovi.velicina();i++) 
+    if(filmovi.dohvatiEl(i).getSerijski()==f.getSerijski()){
+      cout<<"Serijski broj je vec u upotrebi."<<endl; 
+      return;}
+  filmovi.dodajNaKraj(f);
+}
+
 void listaFilmova::dodajFilm(){
   if(filmovi.velicina()==filmovi.maxVelicina()){cout<< "Videoeka je puna."<<endl; return;}
   
@@ -129,7 +139,8 @@ void listaFilmova::dodajFilm(){
   for(int i=0;i<filmovi.velicina();i++)
     if(filmovi.dohvatiEl(i).getSerijski()==temp.getSerijski()) {cout<<"Serijski broj je vec u upotrebi."<<endl; return;
     }
-  filmovi.dodajNaKraj(temp);}
+  filmovi.dodajNaKraj(temp);
+}
 
   void listaFilmova::ukloniFilm(int serial){
     for(int i=0;i<filmovi.velicina();i++){
