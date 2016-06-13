@@ -10,9 +10,10 @@ std::string _prezime;
 unsigned long int _jmbg=0; //za glumce,producente i scenariste ovo polje ce imati vrijednost 0
 public:
 Osoba()=default;
+Osoba(std::string ime,std::string prezime):_ime(ime),_prezime(prezime){};
 Osoba(std::string ime,std::string prezime,unsigned long int jmbg):_ime(ime),_prezime(prezime),_jmbg(jmbg){};
 ~Osoba()=default;
-Osoba(Osoba &o){_ime=o._ime;_prezime=o._prezime;}
+
 Osoba(const Osoba & o){
   _ime=o._ime;
   _prezime=o._prezime;
