@@ -100,13 +100,30 @@ else{
     cout<<endl<<"Unesite broj odabrane opcije: ";
     cin.clear();
     cin>>odabir;
+    //pomocne varijable koje ce se koristiti prilikom neke od navedenih opcija
+    string pretrazi;
+    Film f;
+    int serijski;
+
     switch(odabir){
-      case 1 : break;
-      case 2 : break;
-      case 3 : break;
-      case 4 : break;
-      case 5 : break;
-      case 6 : break;
+      case 1 : Videoteka.print();
+               break;
+      case 2 : cout<<"Unesite naziv filma: ";
+               cin.clear();cin>>pretrazi;
+               Videoteka.pretrazi(pretrazi,1);
+               break;
+      case 3 : cout<<"Unesite naziv filma: ";
+               cin.clear();cin>>pretrazi;
+               Videoteka.pregledFilma(pretrazi);
+               break;
+      case 4 : Videoteka.dodajFilm();
+               break;
+      case 5 : cout<<"Unesite serijski broj filma: ";
+               cin.clear();cin>>serijski;
+               Videoteka.ukloniFilm(serijski);
+               break;
+      case 6 : Videoteka.azurirajFilm();
+               break;
       case 7 : break;
       case 8 : break;
       case 9 : break;
