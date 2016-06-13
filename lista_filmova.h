@@ -15,11 +15,66 @@ class listaFilmova{
     void pregledFilma(std::string ime);
     void posudiFilm(int serial);
     void vratiFilm(int serial);
-    void dodajFilm(Film f);
+    void dodajFilm();
     void ukloniFilm(int serial);
     void azurirajFilm();
 
 };
+
+Film kreirajFilm(){
+  cout<<"Unesite naziv filma: ";
+  std::string naziv; cin.clear(); cin>>naziv;
+  
+  cout<<"Unesite opis filma: ";
+  std::string opis; cin.clear(); cin>>opis;
+  
+  cout<<"Unesite ime i prezime rezisera: ";
+  std::string ime,prezime; cin.clear(); cin>>ime>>prezime;
+  Osoba rez(ime,prezime);
+  
+  cout<<"Unesite broj producenata: ";
+  int broj; cin.clear(); cin>>broj;
+  ListaNizom<Osoba> lp;
+  for(int i=0;i<broj;i++){
+    cout<<"Unesite ime i prezime producenta: ";
+    cin.clear(); cin>>ime>>prezime;
+    Osoba temp(ime,prezime); lp.dodajNaKraj(temp);
+  }
+  
+  cout<<"Unesite broj scenarista: ";
+  cin.clear(); cin>>broj;
+  ListaNizom<Osoba> ls;
+  for(int i=0;i<broj;i++){
+    cout<<"Unesite ime i prezime producenta: ";
+    cin.clear(); cin>>ime>>prezime;
+    Osoba temp(ime,prezime); ls.dodajNaKraj(temp);
+  }
+  
+  cout<<"Unesite broj glumaca: ";
+  cin.clear(); cin>>broj;
+  ListaNizom<Osoba> lg;
+  for(int i=0;i<broj;i++){
+    cout<<"Unesite ime i prezime glumca: ";
+    cin.clear(); cin>>ime>>prezime;
+    Osoba temp(ime,prezime); lg.dodajNaKraj(temp);
+  }
+
+  cout<<"Unesite naziv produkcijske kompanije: ";
+  std::string prkomp;  cin.clear(); cin>>prkomp;
+
+  cout<<"Unesite godinu izdavanja: ";
+  unsigned int godizd; cin.clear(); cin>>godizd;
+
+  cout<<"Unesite broj kopija: ";
+  unsigned int brkop; cin.clear(); cin>>brkop;
+
+  cout<<"Unesite serijski broj"<<endl;
+  cout<<"NAPOMENA: ukoliko serijski broj vec postoji u videoteci, unos nece biti validan!"<<endl;
+  int ser; cin.clear(); cin>>ser;
+
+  Film f(naziv,opis,rez,lp,ls,lg,prkomp,godizd,brkop,ser);
+  return f;
+}
 
 
 void listaFilmova::print(){
@@ -66,14 +121,15 @@ void listaFilmova::vratiFilm(int serial){
   if(provjera==0) std::cout<<"Film se ne nalazi u videoteci."<<endl;
 }
 
-void listaFilmova::dodajFilm(Film f){
+void listaFilmova::dodajFilm(){
+  if(filmovi.velicina()==filmovi.maxVelicina()){cout<< "Videoeka je puna."<<endl; return;}
+  
+  Film temp=kreirajFilm();
+
   for(int i=0;i<filmovi.velicina();i++)
-    if(filmovi.dohvatiEl(i).getSerijski()==f.getSerijski()) {cout<<"Serijski broj je vec u upotrebi."<<endl; return;
+    if(filmovi.dohvatiEl(i).getSerijski()==temp.getSerijski()) {cout<<"Serijski broj je vec u upotrebi."<<endl; return;
     }
-
-  if(filmovi.velicina()==filmovi.maxVelicina()) {cout<<"Videoteka je puna."<<endl; return;}
-
-  filmovi.dodajNaKraj(f);}
+  filmovi.dodajNaKraj(temp);}
 
   void listaFilmova::ukloniFilm(int serial){
     for(int i=0;i<filmovi.velicina();i++){
