@@ -1,6 +1,6 @@
 #include "admin.h"
 #include "lista_filmova.h"
-#include "lista.hxx"
+//#include "lista.hxx"
 #include <fstream>
 #include <sstream>
 #include <iostream>

@@ -3,8 +3,8 @@
 #include <iomanip>
 
 #include "lista.hxx"
-#include "osoba.h"
-#include "datum.h"
+#include "korisnik.h"
+//#include "datum.h"
 
 class Film{
   private:
