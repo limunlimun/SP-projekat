@@ -141,4 +141,11 @@ else{
 
   }
 
-}}
+}
+
+ofstream ofile("lista_filmova.txt");
+for(int i=0;i<Videoteka.trenutnoStanje();i++)
+  ofile<<Videoteka.getFilmovi().dohvatiEl(i).pripremiIspis()<<endl;
+
+
+}
