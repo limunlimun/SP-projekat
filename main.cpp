@@ -41,15 +41,17 @@ Film kreiraj(string red){
   stringstream x(temp.at(7));unsigned int godizd;x>>godizd;
   stringstream y(temp.at(8));unsigned int brkop;y>>brkop;
   stringstream z(temp.at(9));int ser;z>>ser;
+  
   ListaNizom<Osoba> lp;
   osobe=rastaviOsobe(temp[3]);
-  for(int i=0;i<temp.size();i++) lp.dodajNaKraj(osobe[i]);
+  for(int i=0;i<osobe.size();i++) lp.dodajNaKraj(osobe[i]);
+  
   ListaNizom<Osoba> ls;
   osobe=rastaviOsobe(temp[4]);
-  for(int i=0;i<temp.size();i++) ls.dodajNaKraj(osobe[i]);
+  for(int i=0;i<osobe.size();i++) ls.dodajNaKraj(osobe[i]);
   ListaNizom<Osoba> lg;
   osobe=rastaviOsobe(temp[5]);
-  for(int i=0;i<temp.size();i++) lg.dodajNaKraj(osobe[i]);
+  for(int i=0;i<osobe.size();i++) lg.dodajNaKraj(osobe[i]);
   Film pom(temp[0],temp[1],rez,lp,ls,lg,temp[6],godizd,brkop,ser);
 return pom;
 }
@@ -64,6 +66,7 @@ int main(){
   string red;
   while(getline(infile,red)){
     Videoteka.dodajFilm(kreiraj(red));
+    Videoteka.print();
   }
 
   Admin admin;
