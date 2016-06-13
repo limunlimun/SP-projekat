@@ -122,7 +122,9 @@ else{
                cin.clear();cin>>serijski;
                Videoteka.ukloniFilm(serijski);
                break;
-      case 6 : Videoteka.azurirajFilm();
+      case 6 : cout<<"Unesite serijski broj filma: ";
+               cin.clear(); cin>>serijski;
+               Videoteka.azurirajFilm(serijski);
                break;
       case 7 : break;
       case 8 : break;
