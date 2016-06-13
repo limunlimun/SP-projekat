@@ -1,7 +1,7 @@
 #ifndef _FILM_H
 #define _FILM_H
 #include <iomanip>
-
+#include <sstream>
 #include "lista.hxx"
 #include "korisnik.h"
 //#include "datum.h"
@@ -123,6 +123,32 @@ class Film{
       cout<<"Serijski broj: "<<serijski<<endl;
 }
 
+string pripremiIspis(){
+  string povratni;
+  povratni=_naziv+';'+_opis+';'+_reziser.getIme()+'.'+_reziser.getPrezime();
+  for(int i=0;i<lista_producenata.velicina();i++){
+    povratni+=lista_producenata.dohvatiEl(i).getIme()+'.'+lista_producenata.dohvatiEl(i).getPrezime();
+    if(i==lista_producenata.velicina()-1) povratni+=';';
+    else povratni+=',';
+  }
+  for(int i=0;i<lista_scenarista.velicina();i++){
+    povratni+=lista_scenarista.dohvatiEl(i).getIme()+'.'+lista_scenarista.dohvatiEl(i).getPrezime();
+    if(i==lista_producenata.velicina()-1) povratni+=';';
+    else povratni+=',';
+  }
+  for(int i=0;i<lista_glumaca.velicina();i++){
+    povratni+=lista_glumaca.dohvatiEl(i).getIme()+'.'+lista_glumaca.dohvatiEl(i).getPrezime();
+    if(i==lista_producenata.velicina()-1) povratni+=';';
+    else povratni+=',';
+  }
+  povratni+=prod_komp;
+  stringstream a; a<<god_izdavanja;
+  stringstream b; b<<broj_kopija;
+  stringstream c; c<<serijski;
+  povratni+=a.str()+';'+b.str()+';'+c.str();
+
+  return povratni;
+}
 };
 
 #endif
