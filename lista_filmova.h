@@ -18,7 +18,7 @@ class listaFilmova{
     void dodajFilm();
     void dodajFilm(Film f);
     void ukloniFilm(int serial);
-    void azurirajFilm();
+    void azurirajFilm(int serial);
 
 };
 
@@ -152,5 +152,63 @@ void listaFilmova::dodajFilm(){
       cout<<"Film ne postoji u videoteci."<<endl;
   }
 
+void listaFilmova::azurirajFilm(int serial){
+  int ind=-1;
+  
+  for(int i=0;i<filmovi.velicina();i++){
+    if(filmovi.dohvatiEl(i).getSerijski()==serial) ind=i;
+  }
+  
+  if(ind==-1) {
+    cout<<"Film nije u videoteci"<<endl;
+    return;
+  }
+
+  cout<<"Koju informaciju zelite azurirati: "<<endl;
+  cout<<" 1. Naziv"<<endl;
+  cout<<" 2. Opis"<<endl;
+  cout<<" 3. Rezisera"<<endl;
+  cout<<" 4. Listu producenata"<<endl;
+  cout<<" 5. Listu scenarista"<<endl;
+  cout<<" 6. Listu glumaca"<<endl;
+  cout<<" 7. Produkcijsku kompaniju"<<endl;
+  cout<<" 8. Godinu izdavanja"<<endl;
+  cout<<" 9. Broj kopija"<<endl;
+  cout<<"10. Serijski broj"<<endl;
+  int odabir;
+  int broj;
+  std::string novi;
+  cin.clear(); cin>>odabir;
+  switch(odabir){
+    case 1 : cout<<"Unesite novi naziv filma: ";
+             cin.clear(); cin>>novi;
+             filmovi.dohvatiEl(ind).setNaziv(novi);
+             break;
+    case 2 : cout<<"Unesite novi opis filma: ";
+             cin.clear(); cin>>novi;
+             filmovi.dohvatiEl(ind).setOpis(novi);
+             break;
+    case 3 : break;
+    case 4 : break;
+    case 5 : break;
+    case 6 : break;
+    case 7 : cout<<"Unesite novu produkcijsku kompaniju: ";
+             cin.clear(); cin>>novi;
+             filmovi.dohvatiEl(ind).setKompanija(novi);
+             break;
+    case 8 : cout<<"Unesite godinu izdavanja: ";
+             cin.clear(); cin>>broj;
+             filmovi.dohvatiEl(ind).setGodIzd(broj);
+             break;
+    case 9 : cout<<"Unesite broj kopija: ";
+             cin.clear(); cin>>broj;
+             filmovi.dohvatiEl(ind).setBrKopija(broj);
+             break;
+    case 10 : cout<<"Unesite serijski broj: ";
+              cin.clear(); cin>>broj;
+              filmovi.dohvatiEl(ind).setSerijski(broj);
+              break;
+  }
+}
 
 #endif
