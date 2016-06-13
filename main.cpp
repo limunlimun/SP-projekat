@@ -66,8 +66,7 @@ int main(){
   string red;
   while(getline(infile,red)){
     Videoteka.dodajFilm(kreiraj(red));
-    Videoteka.print();
-  }
+    }
 
   Admin admin;
   cout<<"Unesite korisnicko ime i password za administratora: ";
