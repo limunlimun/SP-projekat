@@ -13,10 +13,10 @@ vector<Osoba> rastaviOsobe(string lista){
   string novi;
   string zaosobu;
   vector<Osoba> povratni;
-  vector<string> pomocni;
   string ime; string prezime;
   while(getline(x,novi,',')) {
     stringstream y(novi);
+    vector<string> pomocni;
     while(getline(y,zaosobu,'.')) pomocni.push_back(zaosobu);
     ime=pomocni[0]; prezime=pomocni[1];
     Osoba temp(ime,prezime);
