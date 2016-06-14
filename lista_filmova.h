@@ -29,10 +29,13 @@ int listaFilmova::trenutnoStanje(){
 
 Film kreirajFilm(){
   cout<<"Unesite naziv filma: ";
-  std::string naziv; cin.clear(); cin>>naziv;
+  std::string naziv;
+  std::string temp; cin.clear(); 
+  while(cin>>temp){naziv+=temp+" ";}
   
   cout<<"Unesite opis filma: ";
-  std::string opis; cin.clear(); cin>>opis;
+  std::string opis; cin.clear(); 
+  while(cin>>temp){opis+=temp+" ";};
   
   cout<<"Unesite ime i prezime rezisera: ";
   std::string ime,prezime; cin.clear(); cin>>ime>>prezime;
@@ -66,7 +69,8 @@ Film kreirajFilm(){
   }
 
   cout<<"Unesite naziv produkcijske kompanije: ";
-  std::string prkomp;  cin.clear(); cin>>prkomp;
+  std::string prkomp;  cin.clear(); 
+  while(cin>>temp) prkomp+=temp+" ";
 
   cout<<"Unesite godinu izdavanja: ";
   unsigned int godizd; cin.clear(); cin>>godizd;
@@ -84,9 +88,10 @@ Film kreirajFilm(){
 
 
 void listaFilmova::print(){
- for(int i=0;i<filmovi.velicina();i++)
+ for(int i=0;i<filmovi.velicina();i++){
    filmovi.dohvatiEl(i).printFilm();
-}
+   cout<<endl;
+}}
 
 int listaFilmova::pretrazi(std::string ime,int ispis){
   int brojac=0;
