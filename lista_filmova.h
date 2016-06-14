@@ -5,6 +5,7 @@
 
 class listaFilmova{
   private:
+    const std::string _imeV="Films and Structures";
     ListaNizom<Film> filmovi;
   public:
     listaFilmova()=default;
@@ -19,6 +20,8 @@ class listaFilmova{
     void dodajFilm(Film f);
     void ukloniFilm(int serial);
     void azurirajFilm(int serial);
+
+    const std::string getImeV() const {return _imeV;}
     
     ListaNizom<Film> getFilmovi(){return filmovi;}
 };
