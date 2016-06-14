@@ -12,7 +12,7 @@ class listaFilmova{
     int trenutnoStanje();
     void print();
     int pretrazi(std::string ime,int ispis=0);
-    void pregledFilma(std::string ime);
+    int pregledFilma(std::string ime);
     void posudiFilm(int serial);
     void vratiFilm(int serial);
     void dodajFilm();
@@ -99,9 +99,10 @@ int listaFilmova::pretrazi(std::string ime,int ispis){
   return brojac;
 }
 
-void listaFilmova::pregledFilma(std::string ime){
-  if(pretrazi(ime,1)) 
-    ;
+int listaFilmova::pregledFilma(std::string ime){
+  if(pretrazi(ime,1)) return 1;
+    
+  else return 0;
 }
 
 void listaFilmova::posudiFilm(int serial){

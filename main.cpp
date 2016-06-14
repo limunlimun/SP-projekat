@@ -80,7 +80,7 @@ else{
   int izlaz=0;
   int odabir=0;
   while(izlaz!=1){
-    
+    cout<<endl<<endl;
     cout<<"Ponudjenje opcije:"<<endl;
     cout<<" 1. Pregled sadrzaja videoteke"<<endl;
     cout<<" 2. Pretraga videoteke po nazivu filma"<<endl;
@@ -99,31 +99,40 @@ else{
     cout<<endl<<"Unesite broj odabrane opcije: ";
     cin.clear();
     cin>>odabir;
+    cout<<endl<<endl;
     //pomocne varijable koje ce se koristiti prilikom neke od navedenih opcija
     string pretrazi;
     Film f;
     int serijski;
+    int temp;
 
     switch(odabir){
       case 1 : Videoteka.print();
+               cout<<endl;
                break;
       case 2 : cout<<"Unesite naziv filma: ";
                cin.clear();cin>>pretrazi;
-               Videoteka.pretrazi(pretrazi,1);
+               temp=Videoteka.pretrazi(pretrazi);
+               cout<<"Pronadjeno je "<<temp<<" filmova."<<endl;
                break;
       case 3 : cout<<"Unesite naziv filma: ";
-               cin.clear();cin>>pretrazi;
-               Videoteka.pregledFilma(pretrazi);
+               cin.clear();cin>>pretrazi;cout<<endl;
+               temp=Videoteka.pregledFilma(pretrazi);
+               if(!temp) cout<<"Film nije pronadjen"<<endl;
+               cout<<endl;
                break;
       case 4 : Videoteka.dodajFilm();
+               cout<<endl;
                break;
       case 5 : cout<<"Unesite serijski broj filma: ";
                cin.clear();cin>>serijski;
                Videoteka.ukloniFilm(serijski);
+               cout<<endl;
                break;
       case 6 : cout<<"Unesite serijski broj filma: ";
                cin.clear(); cin>>serijski;
                Videoteka.azurirajFilm(serijski);
+               cout<<endl;
                break;
       case 7 : break;
       case 8 : break;
@@ -134,7 +143,9 @@ else{
       case 13 : break;
       case 14 : izlaz=1;
                 break;
-      default : cout<<"Pogresan unos. Pokusajte ponovo"<<endl;
+      default : cout<<"Pogresan unos. Program se terminira!"<<endl;
+                izlaz=1;
+                cout<<endl;
                 break;
     } 
 
@@ -143,9 +154,9 @@ else{
 
 }
 
-ofstream ofile("lista_filmova.txt");
-for(int i=0;i<Videoteka.trenutnoStanje();i++)
-  ofile<<Videoteka.getFilmovi().dohvatiEl(i).pripremiIspis()<<endl;
+//ofstream ofile("lista_filmova.txt");
+//for(int i=0;i<Videoteka.trenutnoStanje();i++)
+//  ofile<<Videoteka.getFilmovi().dohvatiEl(i).pripremiIspis()<<endl;
 
 
 }

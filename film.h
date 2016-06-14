@@ -60,8 +60,10 @@ class Film{
 
     void setNaziv(std::string x){_naziv=x;}
     void setOpis(std::string x){_opis=x;}
-    //nedostaje reziser i setovanje listi
-    //potrebno u klasu osoba dodati konstruktos Osoba(Osoba)
+    void setReziser(Osoba x){_reziser=x;}
+    void setProducenti(ListaNizom<Osoba> x){lista_producenata=x;}
+    void setScenaristi(ListaNizom<Osoba> x){lista_scenarista=x;}
+    void setGlumci(ListaNizom<Osoba> x){lista_glumaca=x;}
     void setKompanija(std::string x){prod_komp=x;}
     void setGodIzd(int x){god_izdavanja=x;}
     void setBrKopija(int x){broj_kopija=x;}
@@ -125,7 +127,7 @@ class Film{
 
 string pripremiIspis(){
   string povratni;
-  povratni=_naziv+';'+_opis+';'+_reziser.getIme()+'.'+_reziser.getPrezime();
+  povratni=_naziv+';'+_opis+';'+_reziser.getIme()+'.'+_reziser.getPrezime()+';';
   for(int i=0;i<lista_producenata.velicina();i++){
     povratni+=lista_producenata.dohvatiEl(i).getIme()+'.'+lista_producenata.dohvatiEl(i).getPrezime();
     if(i==lista_producenata.velicina()-1) povratni+=';';
@@ -146,7 +148,6 @@ string pripremiIspis(){
   stringstream b; b<<broj_kopija;
   stringstream c; c<<serijski;
   povratni+=a.str()+';'+b.str()+';'+c.str();
-
   return povratni;
 }
 };
