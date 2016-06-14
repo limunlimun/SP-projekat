@@ -69,14 +69,18 @@ int main(){
     }
 
   Admin admin;
-  cout<<"Unesite korisnicko ime i password za administratora: ";
+  int menu=0;
+  cout<<"Unesite korisnicko ime i password: ";
   string ime;
   string lozinka;
   cin>>ime>>lozinka;
-  if (!admin.login(ime,lozinka)) {cout<<"Pogresan unos.Program se terminira!"<<endl;
-  return 0;
-}
-else{
+  if (admin.login(ime,lozinka)) menu=1;
+  //else if - odraditi pretragu korisnika po imenu i lozinci
+  //te postaviti menu na 2
+  //else - ako nijedan unos nije zadocoljen terminirati program
+  cout<<ime<<", dobrodosli u videoteku "<<Videoteka.getImeV()<<endl;
+  if(menu==0) cout<<"Unos nije validan. Program se terminira!"<<endl;
+  if(menu==1){
   int izlaz=0;
   int odabir=0;
   while(izlaz!=1){
@@ -147,12 +151,14 @@ else{
                 izlaz=1;
                 cout<<endl;
                 break;
-    } 
+    } //kraj switch
 
 
-  }
+  }//kraj while
+}//kraj if(menu)
 
-}
+if(menu==2){}
+
 
 //ofstream ofile("lista_filmova.txt");
 //for(int i=0;i<Videoteka.trenutnoStanje();i++)
