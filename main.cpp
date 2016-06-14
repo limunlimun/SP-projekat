@@ -78,7 +78,7 @@ int main(){
   //else if - odraditi pretragu korisnika po imenu i lozinci
   //te postaviti menu na 2
   //else - ako nijedan unos nije zadocoljen terminirati program
-  cout<<ime<<", dobrodosli u videoteku "<<Videoteka.getImeV()<<endl;
+  if(menu) cout<<ime<<", dobrodosli u videoteku "<<Videoteka.getImeV()<<endl;
   if(menu==0) cout<<"Unos nije validan. Program se terminira!"<<endl;
   if(menu==1){
   int izlaz=0;
@@ -106,7 +106,6 @@ int main(){
     cout<<endl<<endl;
     //pomocne varijable koje ce se koristiti prilikom neke od navedenih opcija
     string pretrazi;
-    Film f;
     int serijski;
     int temp;
 
@@ -157,7 +156,60 @@ int main(){
   }//kraj while
 }//kraj if(menu)
 
-if(menu==2){}
+if(menu==2){
+  int izlaz=0;
+  int odabir=0;
+  while(izlaz!=1){
+    cout<<endl<<endl;
+    cout<<"Ponudjene opcije: "<<endl;
+    cout<<"1. Pregled sadrzaja videoteke"<<endl;
+    cout<<"2. Pretraga po nazivu filma"<<endl;
+    cout<<"3. Ispis svih podataka za odabrani film"<<endl;
+    cout<<"4. Posudi film"<<endl;
+    cout<<"5. Vrati film"<<endl;
+    cout<<"6. Pregled svoje historije posudjivanja filmova"<<endl;
+    cout<<"7. Pregled trenutne liste posudjenih filmova"<<endl;
+    cout<<"8. Izlaz iz programa"<<endl;
+    cout<<endl<<"Unesite broj odabrane opcije: ";
+    cin.clear();
+    cin>>odabir;
+    //pomocne varijable
+    string pretrazi;
+    int temp;
+    int serijski;
+
+    switch(odabir){
+      case 1 : Videoteka.print();
+               cout<<endl;
+               break;
+      case 2 : cout<<"Unesite naziv filma: ";
+               cin.clear(); cin>>pretrazi;
+               temp=Videoteka.pretrazi(pretrazi);
+               cout<<"Pronadjeno je "<<temp<<" filmova."<<endl;
+               cout<<endl;
+               break;
+      case 3 : cout<<"Unesite naziv filma: ";
+               cin.clear(); cin>>pretrazi;
+               temp=Videoteka.pregledFilma(pretrazi);
+               if(!temp) cout<<"Film nije pronadjen"<<endl;
+               cout<<endl;
+               break;
+      case 4 : break;
+      case 5 : break;
+      case 6 : break;
+      case 7 : break;
+      case 8 : cout<<"Dodjite nam opet :)"<<endl;
+               izlaz=1;
+               cout<<endl;
+               break;
+      default : cout<<"Unos nije validan. Program se terminira"<<endl;
+                izlaz=1;
+                break;
+      
+    }//kraj switch
+
+  }//kraj while
+}//kraj if
 
 
 //ofstream ofile("lista_filmova.txt");
