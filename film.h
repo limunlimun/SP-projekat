@@ -139,15 +139,15 @@ string pripremiIspis(){
   }
   for(int i=0;i<lista_scenarista.velicina();i++){
     povratni+=lista_scenarista.dohvatiEl(i).getIme()+'.'+lista_scenarista.dohvatiEl(i).getPrezime();
-    if(i==lista_producenata.velicina()-1) povratni+=';';
+    if(i==lista_scenarista.velicina()-1) povratni+=';';
     else povratni+=',';
   }
   for(int i=0;i<lista_glumaca.velicina();i++){
     povratni+=lista_glumaca.dohvatiEl(i).getIme()+'.'+lista_glumaca.dohvatiEl(i).getPrezime();
-    if(i==lista_producenata.velicina()-1) povratni+=';';
+    if(i==lista_glumaca.velicina()-1) povratni+=';';
     else povratni+=',';
   }
-  povratni+=prod_komp;
+  povratni+=prod_komp+';';
   stringstream a; a<<god_izdavanja;
   stringstream b; b<<broj_kopija;
   stringstream c; c<<serijski;
