@@ -94,35 +94,39 @@ class Film{
 		this->_reziser=std::move(x._reziser);
 	}
     void printFilm(){
-      cout<<setw(4);
+      cout<<setw(4)<<" ";
       cout<<"Naziv: "<<_naziv<<endl;
-      cout<<setw(4);
+      cout<<setw(4)<<" ";
       cout<<"Opis: "<<_opis<<endl;
-      cout<<setw(4); 
+      cout<<setw(4)<<" "; 
       cout<<"Reziser: "; _reziser.printOsoba(); cout<<endl;
-      cout<<setw(4); 
+      cout<<setw(4)<<" "; 
       cout<<"Producenti: ";
       for(int i=0;i<lista_producenata.velicina();i++){
         lista_producenata.dohvatiEl(i).printOsoba();
-        cout<<" ";} cout<<endl;
-      cout<<setw(4);
+        if(i!=lista_producenata.velicina()-1)cout<<" , ";} 
+      cout<<endl;
+      cout<<setw(4)<<" ";
       cout<<"Scenaristi: ";
       for(int i=0;i<lista_scenarista.velicina();i++){
         lista_scenarista.dohvatiEl(i).printOsoba();
-        cout<<" ";} cout<<endl;
-      cout<<setw(4);
+        if(i!=lista_scenarista.velicina()-1)cout<<" , ";} 
+      cout<<endl;
+      cout<<setw(4)<<" ";
       cout<<"Glumci: ";
       for(int i=0;i<lista_glumaca.velicina();i++){
         lista_glumaca.dohvatiEl(i).printOsoba();
-      cout<<" ";} cout<<endl;
-      cout<<setw(4);
+        if(i!=lista_glumaca.velicina()-1) cout<<" , ";} 
+      cout<<endl;
+      cout<<setw(4)<<" ";
       cout<<"Produkcijska kompanija: "<<prod_komp<<endl;
-      cout<<setw(4);
+      cout<<setw(4)<<" ";
       cout<<"Godina izdavanja: "<<god_izdavanja<<endl;
-      cout<<setw(4);
+      cout<<setw(4)<<" ";
       cout<<"Broj kopija: "<<broj_kopija<<endl;
-      cout<<setw(4);
+      cout<<setw(4)<<" ";
       cout<<"Serijski broj: "<<serijski<<endl;
+      cout<<endl;
 }
 
 string pripremiIspis(){
