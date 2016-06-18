@@ -4,77 +4,147 @@
 #include"korisnik.h"
 #include<iostream>
 #include<cstddef>
-template <class Type>
-struct Node
-{
-	private:
-	Type info;
-	
-	public:
-	Node<Type> *llink;
-	Node<Type> *rlink;
-	
-	
-	Node(const Type & v) : info(v), llink(nullptr), rlink(nullptr){}
-	void SetInfo(Type v) {info=v;}
-	Type getInfo() {return info;}
-};
+#include"lista_filmova.h"
+
 
 
 class ListaKorisnika
 {
 	private:
-		Node<Korisnik>* root;
-		size_t size;
+			ListaNizom<Korisnik> _data;
+			size_t _size;
 		
 	
 	public:
-		ListaKorisnika(); // konstruktor
-		~ListaKorisnika(); //destruktor
-		void dodajKorisnika(Korisnik x);	// dodavanje novog korisnika
-		void iznajmiFilm(Film x); //iznajmljuje film
-		void obrisiKorisnika(); // brise ga iz liste
-		Korisnik pretragaKorisnika(); //pretraga
-		void blacklist();	//lista korisnika koji duguju filmove iznad granice
-		bool empty();	//da li je prazna lista
-		size_t brojKorisnika();	// size()
+		ListaKorisnika(); //  gotov
+		~ListaKorisnika(); // gotov
+		
+		void kreirajKorisnika();// gotov
+		void obrisiKorisnika(std::string x); // 
+		int pretragaKorisnika(std::string x); // pretraga
+		void dodajKorisnika(Korisnik x);	// gotovo
+		
+		void iznajmiFilm(listaFilmova x); //gotovo
+		void vratiFilm(listaFilmova x); //
+		
+		
+		void blacklist();	//
+		bool empty();	//gotov
+		size_t brojKorisnika();	// gotov
 };
 
 ListaKorisnika::ListaKorisnika()
 {
-	root=nullptr;
-	size=0;
+	_size=0;
 }
 
 bool ListaKorisnika::empty()
 {
-	return (size==0);
+	return (_size==0);
 }
 
 size_t ListaKorisnika::brojKorisnika()
 {
-	return size;
+	return _size;
+}
+
+ListaKorisnika::~ListaKorisnika()
+{
+	_data.~ListaNizom();
+	_size=0;
 }
 
 void ListaKorisnika::dodajKorisnika(Korisnik x)
 {
-	Node<Korisnik>* novi=new Node<Korisnik>(x);
-	Node<Korisnik>* pom=root;
-	novi->SetInfo(x);
-	if(empty())
-	{
-		root=novi;
-	}
-	else
-	{
-		while(pom!=nullptr)
-		{
-			if(novi->getInfo > pom->getInfo())
-			
-		}
-	}
-	
-	size++;
+	_data.dodaj(x);
+	_size++;
 }
 
+int ListaKorisnika::pretragaKorisnika(std::string x)
+{
+	int j=-1;
+	Korisnik pom; 	
+	for (int i=0;i<_data.maxVelicina();i++)
+	{
+		pom=_data.dohvatiEl(i);
+		if(pom.getOsoba().getIme()==x || pom.getOsoba().getPrezime()==x)
+		j=i;
+	}
+	return j;
+}
+
+void ListaKorisnika::obrisiKorisnika(std::string x)
+{
+	int t=pretragaKorisnika(x);
+	if(t != -1)
+	_data.ukloniSaLokacije(t);
+	else
+	std::cout<<"Korisnik uopste nije u bazi podataka!"<<std::endl;
+}
+
+void ListaKorisnika::kreirajKorisnika()
+{
+	Korisnik novi;
+	std::string pom;
+	std::cout<<"Molimo unesite ime vaseg korisnika"<<std::endl;
+	cin>>pom;
+	novi.getOsoba().setIme(pom);
+	cin.clear();
+	
+	std::cout<<"Unesite prezime vaseg korisnika"<<std::endl;
+	cin>>pom;
+	novi.getOsoba().setPrezime(pom);
+	cin.clear();
+	
+	std::cout<<"Unesite prezime vaseg korisnika"<<std::endl;
+	cin>>pom;
+	novi.getOsoba().setJMBG(pom);
+	cin.clear();
+	
+	int j;
+	std::cout<<"Unesite datum prijavljivanja u videoteku: "<<std::endl;
+	cin>>j;
+	novi.setBrPF(0);
+	novi.getDatum().setDan(j);
+	cin.clear();
+	cin>>j;
+	novi.getDatum().setMjesec(j);
+	cin.clear();
+	cin>>j;
+	novi.getDatum().setGodina(j);
+	
+	if(pretragaKorisnika(novi.getOsoba().getIme())==-1&& pretragaKorisnika(novi.getOsoba().getJMBG())==-1)
+	dodajKorisnika(novi);
+	else
+	std::cout<<"Korisnik vec postoji u bazi podataka"<<std::endl;
+}
+
+void ListaKorisnika::iznajmiFilm(listaFilmova x)
+{
+	std::cout<<"Unesite ime korisnika: "<<std::endl;
+	std::string ime;
+	cin>>ime;
+	int uslov=pretragaKorisnika(ime);
+	if(uslov==-1)
+	std::cout<<"Niste prijavljeni u videoteku!"<<std::endl;
+	
+	else
+	{
+		x.print();
+		std::cout<<"Unesite ime vaseg filma: "<<std::endl;
+		cin.clear();
+		cin>>ime;
+		if(x.pregledFilma(ime))
+		x.posudiFilm(x.pretrazi(ime,0));
+		_data.dohvatiEl(uslov).setBrPF(_data.dohvatiEl(uslov).getBrPF()+1);
+		std::cout<<"Uspjesno obavljena transakcija! Uzivajte !"<<std::endl;
+	}
+	
+}
+
+void ListaKorisnika::vratiFilm(listaFilmova x)
+{
+
+	
+}
 #endif
