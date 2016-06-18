@@ -37,7 +37,7 @@ class ListaKorisnika
 		Korisnik pretragaKorisnika(); //pretraga
 		void blacklist();	//lista korisnika koji duguju filmove iznad granice
 		bool empty();	//da li je prazna lista
-		bool brojKorisnika();	// size()
+		size_t brojKorisnika();	// size()
 };
 
 ListaKorisnika::ListaKorisnika()
@@ -51,7 +51,7 @@ bool ListaKorisnika::empty()
 	return (size==0);
 }
 
-bool ListaKorisnika::brojKorisnika()
+size_t ListaKorisnika::brojKorisnika()
 {
 	return size;
 }
