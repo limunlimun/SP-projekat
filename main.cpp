@@ -42,6 +42,7 @@ Film kreiraj(string red){
   stringstream y(temp.at(8));unsigned int brkop;y>>brkop;
   stringstream z(temp.at(9));int ser;z>>ser;
   
+  
   ListaNizom<Osoba> lp;
   osobe=rastaviOsobe(temp[3]);
   for(int i=0;i<osobe.size();i++) lp.dodajNaKraj(osobe[i]);
@@ -60,6 +61,11 @@ return pom;
 
 int main(){
   listaFilmova Videoteka;
+  ListaKorisnika Clanovi;
+  //nedostaje implementacija ucitavanja korisnika iz file-a
+  //
+  //
+  //
   ifstream infile;
   infile.open("lista_filmova.txt");
   if(infile.fail()){cerr<<"Greska.Terminiraj."<<endl;exit(1);}

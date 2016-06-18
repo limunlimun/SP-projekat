@@ -31,7 +31,7 @@ class ListaKorisnika
 	public:
 		ListaKorisnika(); // konstruktor
 		~ListaKorisnika(); //destruktor
-		void dodajKorisnika(Korisnik x);	// dodavanje novog filma
+		void dodajKorisnika(Korisnik x);	// dodavanje novog korisnika
 		void iznajmiFilm(Film x); //iznajmljuje film
 		void obrisiKorisnika(); // brise ga iz liste
 		Korisnik pretragaKorisnika(); //pretraga
