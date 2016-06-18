@@ -14,6 +14,50 @@ class Datum{
     int getDan(){return _dan;}
     int getMjesec(){return _mjesec;}
     int getGodina(){return _godina;}
+    
+    void setDan(int j){_dan=j;}
+	void setMjesec(int j){_mjesec=j;}
+    void setGodina(int j){_godina=j;}
+    
+    bool operator>(const Datum& x)
+    {
+    	if(this->_godina>x._godina)
+    	{
+    		return true;
+		}
+		else if(this->_godina==x._godina && this->_mjesec>x._mjesec)
+		{
+			return true;
+		}
+		else if(this->_godina==x._godina && this->_mjesec==x._mjesec && this->_dan>x._dan)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	bool operator<(const Datum& x)
+    {
+    	if(this->_godina<x._godina)
+    	{
+    		return true;
+		}
+		else if(this->_godina==x._godina && this->_mjesec<x._mjesec)
+		{
+			return true;
+		}
+		else if(this->_godina==x._godina && this->_mjesec==x._mjesec && this->_dan<x._dan)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
   };
 
 #endif
