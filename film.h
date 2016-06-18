@@ -67,7 +67,7 @@ class Film{
     void setKompanija(std::string x){prod_komp=x;}
     void setGodIzd(int x){god_izdavanja=x;}
     void setBrKopija(int x){broj_kopija=x;}
-    void setSerijski(int x){serijski=x;}
+    void setSerijski(int x){this->serijski=x;}
 	void operator=(const Film& x)
 	{
 		this->_naziv=x._naziv;

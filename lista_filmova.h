@@ -23,7 +23,7 @@ class listaFilmova{
 
     const std::string getImeV() const {return _imeV;}
     
-    ListaNizom<Film> getFilmovi(){return filmovi;}
+    ListaNizom<Film>& getFilmovi(){return this->filmovi;}
 };
 
 int listaFilmova::trenutnoStanje(){

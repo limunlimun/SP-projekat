@@ -1,6 +1,6 @@
 #include "admin.h"
 #include "lista_filmova.h"
-//#include "Lista_korisnika.h"
+#include "Lista_korisnika.h"
 //#include "lista.hxx"
 #include <fstream>
 #include <sstream>
@@ -9,7 +9,8 @@
 #include <vector>
 using namespace std;
 
-int i =1000;
+int ss =1000;
+int poc=1;
 
 vector<Osoba> rastaviOsobe(string lista){
   stringstream x(lista);
@@ -106,12 +107,19 @@ Korisnik kreirajKorisnika(string red){
     exit(1);
   }
 
+  Film temp;
+
   while(getline(infile,red)){
-    Videoteka.dodajFilm(kreiraj(red));
-    Videoteka.getFilmovi().dohvatiEl(Videoteka.trenutnoStanje()-1).setSerijski(i);
-    i++;
+    temp=kreiraj(red);
+    temp.setSerijski(++poc);
+    Videoteka.dodajFilm(temp);
     }
-  
+  for(int i=0;i<Videoteka.trenutnoStanje();i++){
+    
+    Videoteka.getFilmovi().dohvatiEl(i).setSerijski(ss++);
+    
+  }
+
 
   Admin admin;
   int menu=0;
@@ -172,7 +180,7 @@ Korisnik kreirajKorisnika(string red){
                cout<<endl;
                break;
       case 4 : Videoteka.dodajFilm();
-               i++;
+               ss++;
                cout<<endl;
                break;
       case 5 : cout<<"Unesite serijski broj filma: ";
