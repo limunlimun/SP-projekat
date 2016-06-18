@@ -1,2 +1,3 @@
-Focus;Iskusni prevarant uzima mladu ženu pod svoje okrilje, ali se stvari iskomplikuju kada se romansa upetlja u sve to;Glenn.Ficarra;John.Requa;Robert.Taylor;Margot.Robbie,Will.Smith,Rodrigo.Santoro,BD.Wong,Gerald.McRaney;Warner Bros;2015;5;1;
-It follows;Mladu ženu slijedi nepoznata natprirodna snaga nakon seksualnog susreta;David.Mitchell;Rebecca.Green,David.Mitchell;David.Mitchell;Maika.Monroe,Keir.Gilchrist,Olivia.Luccardi;Radius films;2014;4;2;
+Focus;Iskusni prevarant uzima mladu ženu pod svoje okrilje, ali se stvari iskomplikuju kada se romansa upetlja u sve to;Glenn.Ficarra;John.Requa;Robert.Taylor;Margot.Robbie,Will.Smith,Rodrigo.Santoro,BD.Wong,Gerald.McRaney;Warner Bros;2015;5;1000
+It follows;Mladu ženu slijedi nepoznata natprirodna snaga nakon seksualnog susreta;David.Mitchell;Rebecca.Green,David.Mitchell;David.Mitchell;Maika.Monroe,Keir.Gilchrist,Olivia.Luccardi;Radius films;2014;4;1001
+film ;o filmu ;ime.pr;pr.prpr;sce1.sc;ja.ti;kuca ;0;0;0

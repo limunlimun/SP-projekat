@@ -1,6 +1,6 @@
 #include "admin.h"
 #include "lista_filmova.h"
-#include "Lista_korisnika.h"
+//#include "Lista_korisnika.h"
 //#include "lista.hxx"
 #include <fstream>
 #include <sstream>
@@ -84,7 +84,7 @@ Korisnik kreirajKorisnika(string red){
   return povratni;
 }
     
-  int main(){
+int main(){
   listaFilmova Videoteka;
 //  ListaKorisnika Clanovi;
   
@@ -180,7 +180,7 @@ Korisnik kreirajKorisnika(string red){
                cout<<endl;
                break;
       case 4 : Videoteka.dodajFilm();
-               ss++;
+               
                cout<<endl;
                break;
       case 5 : cout<<"Unesite serijski broj filma: ";
@@ -275,11 +275,12 @@ for(int i=0;i<Videoteka.trenutnoStanje();i++)
   ofile<<Videoteka.getFilmovi().dohvatiEl(i).pripremiIspis()<<endl;
 
   ofile.close();
-//
-//  ofstream ofile("Arhiva.txt");
-//  for(int i=0;i<Clanovi.brojKorisnika();i++){
-//    ofile<<Clanovi.<<endl;
-//  }
+
+//  ofile("Arhiva.txt");
+ // for(int i=0;i<Clanovi.brojKorisnika();i++){
+ //   ofile<<dohvati elemenat .ispis()<<endl;
+ // }
+ ofile.close();
 
   return 0;
 }

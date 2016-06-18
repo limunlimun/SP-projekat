@@ -59,7 +59,7 @@ void ListaKorisnika::dodajKorisnika(Korisnik x)
 {
 	if(pretragaKorisnika(x.getOsoba().getIme())!=-1 && pretragaKorisnika(x.getOsoba().getPrezime())!=-1)
 	{
-	_database.dodaj(x);
+	_database.dodajNaKraj(x);
 	_size++;
 	}
 	

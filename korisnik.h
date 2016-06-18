@@ -1,6 +1,6 @@
 #ifndef _KORISNIK_H
 #define _KORISNIK_H
-
+#include <sstream>
 #include "osoba.h"
 #include "datum.h"
 class Korisnik{
@@ -35,6 +35,22 @@ class Korisnik{
     	else 
 		return false;
 	}
+
+  std::string ispis(){
+    std::string povratni;
+    povratni+=osoba.getPrezime()+';'+osoba.getIme()+';';
+    std::stringstream a;
+    std::stringstream b;
+    std::stringstream c;
+    std::stringstream d;
+    a<<datum.getDan();
+    b<<datum.getMjesec();
+    c<<datum.getGodina();
+    d<<brPosFilmova;
+    povratni+=a.str()+';'+b.str()+';'+c.str()+';'+d.str();
+    return povratni;
+
+  }
 };
 
 
