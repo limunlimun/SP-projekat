@@ -1,154 +1,80 @@
 #ifndef _BIBLIOTEKA_H
 #define _BIBLIOTEKA_H
-#include<iostream>
-#include"Bst.h"
-#include"lista.hxx"
+#include "film.h"
 #include"korisnik.h"
-#include <string>
-#include<fstream>
+#include<iostream>
+#include<cstddef>
+template <class Type>
+struct Node
+{
+	private:
+	Type info;
+	
+	public:
+	Node<Type> *llink;
+	Node<Type> *rlink;
+	
+	
+	Node(const Type & v) : info(v), llink(nullptr), rlink(nullptr){}
+	void SetInfo(Type v) {info=v;}
+	Type getInfo() {return info;}
+};
 
-//arhiviranje samo jos nije gotovo
 
 class ListaKorisnika
 {
-	private :
-		ListaNizom<Korisnik> _database;
-		long _size;
+	private:
+		Node<Korisnik>* root;
+		size_t size;
+		
+	
 	public:
-		ListaKorisnika();	//
-		~ListaKorisnika();	//
-		void dodajKorisnika( Korisnik x); // Dodavanje novog korisnika
-		long brojClanova ();		// administrator
-		void izbrisiKorisnika(std::string x); //admin
-		void iznajmljivanjeFilma(std::string film); //admin dodjeljuje film korisniku, mora pristupiti i listi filmova
-		void arhiviranje(); //upisivanje u txt fajl
-		void prikazStanja(); //Prikazuje sve korisnike
-		void KreiranjeKorisnika();	//
-		int pretragaKorisnika(std::string x); //
-		void Blacklist(); //	//
+		ListaKorisnika(); // konstruktor
+		~ListaKorisnika(); //destruktor
+		void dodajKorisnika(Korisnik x);	// dodavanje novog filma
+		void iznajmiFilm(Film x); //iznajmljuje film
+		void obrisiKorisnika(); // brise ga iz liste
+		Korisnik pretragaKorisnika(); //pretraga
+		void blacklist();	//lista korisnika koji duguju filmove iznad granice
+		bool empty();	//da li je prazna lista
+		bool brojKorisnika();	// size()
 };
 
 ListaKorisnika::ListaKorisnika()
 {
-	_size=0;
-	
+	root=nullptr;
+	size=0;
 }
 
-ListaKorisnika::~ListaKorisnika()
+bool ListaKorisnika::empty()
 {
-	_database.~ListaNizom();
-	_size=0;
+	return (size==0);
+}
+
+bool ListaKorisnika::brojKorisnika()
+{
+	return size;
 }
 
 void ListaKorisnika::dodajKorisnika(Korisnik x)
 {
-	if(pretragaKorisnika(x.getOsoba().getIme())!=-1 && pretragaKorisnika(x.getOsoba().getPrezime())!=-1)
+	Node<Korisnik>* novi=new Node<Korisnik>(x);
+	Node<Korisnik>* pom=root;
+	novi->SetInfo(x);
+	if(empty())
 	{
-	_database.dodaj(x);
-	_size++;
+		root=novi;
 	}
-	
 	else
 	{
-		std::cout<<"Vec postoji korisnik sa istim podacima"<<std::endl;
-	}
-}
-
-long ListaKorisnika::brojClanova()
-{
-	return _size;
-}
-
-void ListaKorisnika::izbrisiKorisnika(std::string x)
-{
-	
-	_database.ukloniSaLokacije(pretragaKorisnika(x));
-	_size--;
-}
-
-void ListaKorisnika::prikazStanja()
-{
-	std::cout<<_database<<std::endl;
-	std::cout<<"Ukupno "<<brojClanova()<<" korisnika"<<std::endl;
-}
-
-int ListaKorisnika::pretragaKorisnika(std::string x)
-{
-	int trind=-1;
-	for(int i=0;i<_database.maxVelicina();i++)
-	{
-		
-		if(_database.dohvatiEl(i).getOsoba().getIme()==x || _database.dohvatiEl(i).getOsoba().getPrezime()==x)
-		trind=i;
-		
-		else
+		while(pom!=nullptr)
 		{
-			//implementirati binary search algoritam baziran na datumu to mogu ja implementirati sutra kad ustanem
+			if(novi->getInfo > pom->getInfo())
 			
 		}
 	}
-	return trind;
-}
-
-void ListaKorisnika::iznajmljivanjeFilma(std::string korisnik)
-{
-		//Metod treba da pristupi i listi filmova da bi smanjio broj kopija a zadatom korisniku povecao broj posudjenih za 1
-		int i=pretragaKorisnika(korisnik);
-		int d=_database.dohvatiEl(i).getBrPF();
-		if(d>=3)
-		std::cout<<"Korisnik dostigao limit! Vratite film pa onda mozete podici jos jedan."<<std::endl;
-		else
-		_database.dohvatiEl(i).setBrPF(d+1);
-		
-}
-
-void ListaKorisnika::Blacklist()
-{
-	for (int i=0;i<_database.maxVelicina();i++)
-	{
-		if(_database.dohvatiEl(i).getBrPF()>=3)
-		cout<<i<<endl;
-	}
-}
-
-void ListaKorisnika::KreiranjeKorisnika()
-{
-	std::string pom;
-	Korisnik novi;
-	std::cout<<"Unesite ime vaseg korisnika"<<std::endl;
-	cin>>pom;
-	novi.getOsoba().setIme(pom);
-	cin.clear();
 	
-	std::cout<<"Unesite prezime vaseg korisnika"<<std::endl;
-	cin>>pom;
-	novi.getOsoba().setPrezime(pom);
-	cin.clear();
-	
-	int j;
-	std::cout<<"Unesite maticni broj vaseg korisnika"<<std::endl;
-	cin>>j;
-	novi.getOsoba().setJMBG(j);
-	cin.clear();
-	
-		
-	std::cout<<"Unesite danasnji datum uclanjenja vaseg korisnika"<<std::endl;
-	cin>>j;
-	novi.getDatum().setDan(j);
-	cin>>j;
-	novi.getDatum().setMjesec(j);
-	cin>>j;
-	novi.getDatum().setGodina(j);
-	
-	
-}
-
-void ListaKorisnika::arhiviranje()
-{
-	//metod treba da upisuje sve date korisnike u txt fajl
-	fstream fajl;
-	fajl.open("arhiva.txt");
-	
+	size++;
 }
 
 #endif
