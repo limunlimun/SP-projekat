@@ -50,10 +50,7 @@ Film kreiraj(string red){
   stringstream z(temp.at(9));
   unsigned int ser; 
   z>>ser;
-  cout<<ser<<endl;
-  
-  
-  
+    
   ListaNizom<Osoba> lp;
   osobe=rastaviOsobe(temp[3]);
   for(int i=0;i<osobe.size();i++) lp.dodajNaKraj(osobe[i]);
