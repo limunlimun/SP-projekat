@@ -11,11 +11,12 @@
 class ListaKorisnika
 {
 	private:
-			ListaNizom<Korisnik> _data;
+			ListaNizom<Korisnik> _database;
 			size_t _size;
 		
 	
 	public:
+		
 		ListaKorisnika(); //  gotov
 		~ListaKorisnika(); // gotov
 		
@@ -27,10 +28,10 @@ class ListaKorisnika
 		void iznajmiFilm(listaFilmova x); //gotovo
 		void vratiFilm(listaFilmova x); //
 		
-		
-		void blacklist();	//
+		void prikazStanja(); //ispisuje sve relevantne podatke za biblioteku
+		void Blacklist();	//gotovo
 		bool empty();	//gotov
-		size_t brojKorisnika();	// gotov
+		size_t brojClanova();	// gotov
 };
 
 ListaKorisnika::ListaKorisnika()
@@ -43,41 +44,54 @@ bool ListaKorisnika::empty()
 	return (_size==0);
 }
 
-size_t ListaKorisnika::brojKorisnika()
+size_t ListaKorisnika::brojClanova()
 {
 	return _size;
 }
 
 ListaKorisnika::~ListaKorisnika()
 {
-	_data.~ListaNizom();
+	_database.~ListaNizom();
 	_size=0;
 }
 
 void ListaKorisnika::dodajKorisnika(Korisnik x)
 {
-	_data.dodajNaKraj(x);
+	if(pretragaKorisnika(x.getOsoba().getIme())!=-1 && pretragaKorisnika(x.getOsoba().getPrezime())!=-1)
+	{
+	_database.dodaj(x);
 	_size++;
+	}
+	
+	else
+	{
+		std::cout<<"Vec postoji korisnik sa istim podacima"<<std::endl;
+	}
 }
 
 int ListaKorisnika::pretragaKorisnika(std::string x)
 {
-	int j=-1;
-	Korisnik pom; 	
-	for (int i=0;i<_data.maxVelicina();i++)
+	int trind=-1;
+	for(int i=0;i<_database.maxVelicina();i++)
 	{
-		pom=_data.dohvatiEl(i);
-		if(pom.getOsoba().getIme()==x || pom.getOsoba().getPrezime()==x)
-		j=i;
+		
+		if(_database.dohvatiEl(i).getOsoba().getIme()==x || _database.dohvatiEl(i).getOsoba().getPrezime()==x)
+		trind=i;
+		
+		else
+		{
+			//implementirati binary search algoritam baziran na datumu to mogu ja implementirati sutra kad ustanem
+			
+		}
 	}
-	return j;
+	return trind;
 }
 
 void ListaKorisnika::obrisiKorisnika(std::string x)
 {
 	int t=pretragaKorisnika(x);
 	if(t != -1)
-	_data.ukloniSaLokacije(t);
+	_database.ukloniSaLokacije(t);
 	else
 	std::cout<<"Korisnik uopste nije u bazi podataka!"<<std::endl;
 }
@@ -136,7 +150,7 @@ void ListaKorisnika::iznajmiFilm(listaFilmova x)
 		cin>>ime;
 		if(x.pregledFilma(ime))
 		x.posudiFilm(x.pretrazi(ime,0));
-		_data.dohvatiEl(uslov).setBrPF(_data.dohvatiEl(uslov).getBrPF()+1);
+		_database.dohvatiEl(uslov).setBrPF(_database.dohvatiEl(uslov).getBrPF()+1);
 		std::cout<<"Uspjesno obavljena transakcija! Uzivajte !"<<std::endl;
 	}
 	
@@ -152,8 +166,29 @@ void ListaKorisnika::vratiFilm(listaFilmova x)
 	if(pom!=1)
 	{
 		std::cout<<"Greska ! Film nije u bazi podataka!"<<std::endl;
+	}
+	else
+	{
+		
 		
 	}
 	
 }
+
+void ListaKorisnika::prikazStanja()
+{
+	std::cout<<_database<<std::endl;
+	std::cout<<"Ukupno "<<brojClanova()<<" korisnika"<<std::endl;
+}
+
+
+
+
+
+
+
+
+
+
+
 #endif
