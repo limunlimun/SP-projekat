@@ -144,7 +144,16 @@ void ListaKorisnika::iznajmiFilm(listaFilmova x)
 
 void ListaKorisnika::vratiFilm(listaFilmova x)
 {
-
+	
+	std::cout<<"Unesite ime filma kojeg vracate:"<<std::endl;
+	string ime;
+	cin>>ime;
+	int pom=x.pretrazi(ime,1)
+	if(pom!=1)
+	{
+		std::cout<<"Greska ! Film nije u bazi podataka!"<<std::endl;
+		s
+	}
 	
 }
 #endif
