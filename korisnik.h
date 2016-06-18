@@ -10,7 +10,7 @@ class Korisnik{
     int brPosFilmova=0;
   public:
     Korisnik()=default;
-    Korisnik(Osoba o,Datum d):osoba(o),datum(d){};
+    Korisnik(Osoba o,Datum d,int br):osoba(o),datum(d),brPosFilmova(br){};
     ~Korisnik()=default;
     
     void setOsoba(const Osoba& x){osoba=x;	}

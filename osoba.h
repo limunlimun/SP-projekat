@@ -7,7 +7,7 @@ class Osoba{
 	private: 
 	std::string _ime;
 	std::string _prezime;
-	unsigned long int _jmbg=0; //za glumce,producente i scenariste ovo polje ce imati vrijednost 0
+  std::string _jmbg="0"; //za glumce,producente i scenariste ovo polje ce imati vrijednost 0
 	
 	public:
 	
@@ -15,7 +15,7 @@ class Osoba{
 	
   Osoba(std::string ime,std::string prezime):_ime(ime),_prezime(prezime){};
 
-	Osoba(std::string ime,std::string prezime,unsigned long int jmbg):_ime(ime),_prezime(prezime),_jmbg(jmbg){};
+	Osoba(std::string ime,std::string prezime,std::string jmbg):_ime(ime),_prezime(prezime),_jmbg(jmbg){};
 	
 	~Osoba()=default;
   	
@@ -43,13 +43,13 @@ class Osoba{
 	
 	std::string getPrezime(){return _prezime;}
 	
-	unsigned long int getJMBG(){return _jmbg;}
+  std::string getJMBG(){return _jmbg;}
 	
 	void setIme(std::string x) { _ime=x;	}
 	
 	void setPrezime(std::string x) {_prezime=x;	}
 	
-	void setJMBG(int x)	{_jmbg=x;	}
+	void setJMBG(std::string x)	{_jmbg=x;	}
 	
 	void printOsoba(){
   std::cout<<_ime<<" "<<_prezime;

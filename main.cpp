@@ -1,5 +1,6 @@
 #include "admin.h"
 #include "lista_filmova.h"
+#include "Lista_korisnika.h"
 //#include "lista.hxx"
 #include <fstream>
 #include <sstream>
@@ -58,21 +59,49 @@ return pom;
 }
 
 
-
-int main(){
+Korisnik kreirajKorisnika(string red){
+  vector<string> temp=rastavi(red);
+  Osoba o(temp[1],temp[0],temp[2]);
+  stringstream x(temp.at(3));
+  stringstream y(temp.at(4));
+  stringstream z(temp.at(5));
+  stringstream w(temp.at(6));
+  int dan,mj,god,br;
+  x>>dan;
+  y>>mj;
+  z>>god;
+  w>>br;
+  Datum d(dan,mj,god);
+  Korisnik povratni(o,d,br);
+  return povratni;
+}
+    
+  int main(){
   listaFilmova Videoteka;
   ListaKorisnika Clanovi;
-  //nedostaje implementacija ucitavanja korisnika iz file-a
-  //
-  //
-  //
+  
   ifstream infile;
-  infile.open("lista_filmova.txt");
-  if(infile.fail()){cerr<<"Greska.Terminiraj."<<endl;exit(1);}
+  infile.open("Arhiva.txt");
+  if(infile.fail()){
+    cerr<<"Greska.Terminiraj."<<endl;
+    exit(1);
+  }
   string red;
   while(getline(infile,red)){
+    Clanovi.dodajKorisnika(kreirajKorisnika(red));
+  }
+  infile.close();
+
+  
+  infile.open("lista_filmova.txt");
+  if(infile.fail()){cerr<<"Greska.Terminiraj."<<endl;exit(1);}
+
+  while(getline(infile,red)){
+    cout<<red<<endl;
     Videoteka.dodajFilm(kreiraj(red));
     }
+
+  infile.close();
 
   Admin admin;
   int menu=0;
@@ -200,8 +229,10 @@ if(menu==2){
                if(!temp) cout<<"Film nije pronadjen"<<endl;
                cout<<endl;
                break;
-      case 4 : break;
-      case 5 : break;
+      case 4 : //metod za posudjivanje filma
+               break;
+      case 5 : //metod za vracanje filma
+               break;
       case 6 : break;
       case 7 : break;
       case 8 : cout<<"Dodjite nam opet :)"<<endl;
@@ -223,6 +254,11 @@ for(int i=0;i<Videoteka.trenutnoStanje();i++)
   ofile<<Videoteka.getFilmovi().dohvatiEl(i).pripremiIspis()<<endl;
 
   ofile.close();
+//
+//  ofstream ofile("Arhiva.txt");
+//  for(int i=0;i<Clanovi.brojKorisnika();i++){
+//    ofile<<Clanovi.<<endl;
+//  }
 
   return 0;
 }
