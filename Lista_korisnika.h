@@ -169,6 +169,10 @@ void ListaKorisnika::vratiFilm(listaFilmova x)
 	}
 	else
 	{
+		Film pom1=x.getFilmovi().dohvatiEl(pom);
+		pom1.setBrKopija(pom1.getBrKopija()+1);
+		x.getFilmovi().zamijeniNaLokaciji(pom,pom1);
+		std::cout<<"Film je vracen"<<std::cout;
 		
 		
 	}
