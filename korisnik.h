@@ -12,12 +12,29 @@ class Korisnik{
     Korisnik()=default;
     Korisnik(Osoba o,Datum d):osoba(o),datum(d){};
     ~Korisnik()=default;
-
+    
+    void setOsoba(const Osoba& x){osoba=x;	}
+	void setdatum(const Datum& x){datum=x;	}
+	void setBrPF(int x){brPosFilmova=x;}
+   
     Osoba getOsoba(){return osoba;}
     Datum getDatum(){return datum;}
-
-    void setBrPF(int x){brPosFilmova=x;}
     int getBrPF(){return brPosFilmova;}
+    
+    bool operator>(const Korisnik& x)
+    {
+    	if(datum > x.datum)
+    	return true;
+    	else 
+		return false;
+	}
+	bool operator<(const Korisnik& x)
+    {
+    	if(datum < x.datum)
+    	return true;
+    	else 
+		return false;
+	}
 };
 
 
