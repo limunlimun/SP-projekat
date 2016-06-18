@@ -33,57 +33,78 @@ int listaFilmova::trenutnoStanje(){
 Film kreirajFilm(){
   cout<<"Unesite naziv filma: ";
   std::string naziv;
-  std::string temp; cin.clear(); 
+  std::string temp; 
+  cin.clear(); 
   while(cin>>temp){naziv+=temp+" ";}
   
   cout<<"Unesite opis filma: ";
-  std::string opis; cin.clear(); 
+  std::string opis; 
+  cin.clear(); 
   while(cin>>temp){opis+=temp+" ";};
   
   cout<<"Unesite ime i prezime rezisera: ";
-  std::string ime,prezime; cin.clear(); cin>>ime>>prezime;
+  std::string ime,prezime; 
+  cin.clear(); 
+  cin>>ime>>prezime;
   Osoba rez(ime,prezime);
   
   cout<<"Unesite broj producenata: ";
-  int broj; cin.clear(); cin>>broj;
+  int broj; 
+  cin.clear(); 
+  cin>>broj;
   ListaNizom<Osoba> lp;
   for(int i=0;i<broj;i++){
     cout<<"Unesite ime i prezime producenta: ";
-    cin.clear(); cin>>ime>>prezime;
-    Osoba temp(ime,prezime); lp.dodajNaKraj(temp);
+    cin.clear(); 
+    cin>>ime>>prezime;
+    Osoba temp(ime,prezime); 
+    lp.dodajNaKraj(temp);
   }
   
   cout<<"Unesite broj scenarista: ";
-  cin.clear(); cin>>broj;
+  cin.clear(); 
+  cin>>broj;
   ListaNizom<Osoba> ls;
   for(int i=0;i<broj;i++){
     cout<<"Unesite ime i prezime producenta: ";
-    cin.clear(); cin>>ime>>prezime;
-    Osoba temp(ime,prezime); ls.dodajNaKraj(temp);
+    cin.clear(); 
+    cin>>ime>>prezime;
+    Osoba temp(ime,prezime); 
+    ls.dodajNaKraj(temp);
   }
   
   cout<<"Unesite broj glumaca: ";
-  cin.clear(); cin>>broj;
+  cin.clear(); 
+  cin>>broj;
   ListaNizom<Osoba> lg;
   for(int i=0;i<broj;i++){
     cout<<"Unesite ime i prezime glumca: ";
-    cin.clear(); cin>>ime>>prezime;
-    Osoba temp(ime,prezime); lg.dodajNaKraj(temp);
+    cin.clear(); 
+    cin>>ime>>prezime;
+    Osoba temp(ime,prezime); 
+    lg.dodajNaKraj(temp);
   }
 
   cout<<"Unesite naziv produkcijske kompanije: ";
-  std::string prkomp;  cin.clear(); 
+  std::string prkomp;  
+  cin.clear(); 
   while(cin>>temp) prkomp+=temp+" ";
 
   cout<<"Unesite godinu izdavanja: ";
-  unsigned int godizd; cin.clear(); cin>>godizd;
+  unsigned int godizd; 
+  cin.clear(); 
+  cin>>godizd;
 
   cout<<"Unesite broj kopija: ";
-  unsigned int brkop; cin.clear(); cin>>brkop;
+  unsigned int brkop; 
+  cin.clear(); 
+  cin>>brkop;
 
   cout<<"Unesite serijski broj"<<endl;
   cout<<"NAPOMENA: ukoliko serijski broj vec postoji u videoteci, unos nece biti validan!"<<endl;
-  int ser; cin.clear(); cin>>ser;
+  int ser; 
+  cin.clear(); 
+  cin>>ser;
 
   Film f(naziv,opis,rez,lp,ls,lg,prkomp,godizd,brkop,ser);
   return f;
@@ -191,35 +212,85 @@ void listaFilmova::azurirajFilm(int serial){
   cout<<"10. Serijski broj"<<endl;
   int odabir;
   int broj;
+  std::string nime;
+  std::string nprezime;
+  Osoba nosoba;
+  ListaNizom<Osoba> nova;
   std::string novi;
   cin.clear(); cin>>odabir;
   switch(odabir){
     case 1 : cout<<"Unesite novi naziv filma: ";
-             cin.clear(); cin>>novi;
+             cin.clear(); 
+             cin>>novi;
              filmovi.dohvatiEl(ind).setNaziv(novi);
              break;
     case 2 : cout<<"Unesite novi opis filma: ";
-             cin.clear(); cin>>novi;
+             cin.clear(); 
+             cin>>novi;
              filmovi.dohvatiEl(ind).setOpis(novi);
              break;
-    case 3 : break;
-    case 4 : break;
-    case 5 : break;
-    case 6 : break;
+    case 3 : cout<<"Unesite novo ime i prezime rezisera: ";
+             cin.clear();
+             cin>>nime>>nprezime;
+             nosoba.setIme(nime);
+             nosoba.setPrezime(nprezime);
+             filmovi.dohvatiEl(ind).setReziser(nosoba);
+             break;
+    case 4 : cout<<"Koliko clanova ima nova lista? ";
+             cin.clear();
+             cin>>broj;
+             for(int i=0;i<broj;i++){
+               cout<<"Unesite ime i prezime: ";
+               cin>>nime>>nprezime;
+               nosoba.setIme(nime);
+               nosoba.setPrezime(nprezime);
+               nova.dodajNaKraj(nosoba);
+             }
+             filmovi.dohvatiEl(ind).setProducenti(nova);         
+             break;
+    case 5 : cout<<"Koliko clanova ima nova lista?";
+             cin.clear();
+             cin>>broj;
+             for(int i=0;i<broj;i++){
+               cout<<"Unesite ime i prezime: ";
+               cin>>nime>>nprezime;
+               nosoba.setIme(nime);
+               nosoba.setPrezime(nprezime);
+               nova.dodajNaKraj(nosoba);
+             }
+             filmovi.dohvatiEl(ind).setScenaristi(nova);
+             break;
+    case 6 : cout<<"Koliko clanova ima nova lista?";
+             cin.clear();
+             cin>>broj;
+             for(int i=0;i<broj;i++){
+               cin.clear();
+               cout<<"Unesite ime i prezime: ";
+               cin>>nime>>nprezime;
+               nosoba.setIme(nime);
+               nosoba.setPrezime(nprezime);
+               nova.dodajNaKraj(nosoba);
+             }
+             filmovi.dohvatiEl(ind).setGlumci(nova);
+             break;
     case 7 : cout<<"Unesite novu produkcijsku kompaniju: ";
-             cin.clear(); cin>>novi;
+             cin.clear(); 
+             cin>>novi;
              filmovi.dohvatiEl(ind).setKompanija(novi);
              break;
     case 8 : cout<<"Unesite godinu izdavanja: ";
-             cin.clear(); cin>>broj;
+             cin.clear(); 
+             cin>>broj;
              filmovi.dohvatiEl(ind).setGodIzd(broj);
              break;
     case 9 : cout<<"Unesite broj kopija: ";
-             cin.clear(); cin>>broj;
+             cin.clear(); 
+             cin>>broj;
              filmovi.dohvatiEl(ind).setBrKopija(broj);
              break;
     case 10 : cout<<"Unesite serijski broj: ";
-              cin.clear(); cin>>broj;
+              cin.clear(); 
+              cin>>broj;
               filmovi.dohvatiEl(ind).setSerijski(broj);
               break;
   }

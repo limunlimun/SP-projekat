@@ -151,6 +151,7 @@ string pripremiIspis(){
   stringstream a; a<<god_izdavanja;
   stringstream b; b<<broj_kopija;
   stringstream c; c<<serijski;
+  
   povratni+=a.str()+';'+b.str()+';'+c.str();
   return povratni;
 }

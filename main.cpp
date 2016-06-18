@@ -1,6 +1,6 @@
 #include "admin.h"
 #include "lista_filmova.h"
-#include "Lista_korisnika.h"
+//#include "Lista_korisnika.h"
 //#include "lista.hxx"
 #include <fstream>
 #include <sstream>
@@ -8,6 +8,8 @@
 #include <cstdlib>
 #include <vector>
 using namespace std;
+
+int i =1000;
 
 vector<Osoba> rastaviOsobe(string lista){
   stringstream x(lista);
@@ -39,9 +41,17 @@ Film kreiraj(string red){
   Osoba rez;
   vector<Osoba> osobe=rastaviOsobe(temp[2]);
   rez=osobe[0];
-  stringstream x(temp.at(7));unsigned int godizd;x>>godizd;
-  stringstream y(temp.at(8));unsigned int brkop;y>>brkop;
-  stringstream z(temp.at(9));int ser;z>>ser;
+  stringstream x(temp.at(7));
+  unsigned int godizd;
+  x>>godizd;
+  stringstream y(temp.at(8));
+  unsigned int brkop;
+  y>>brkop;
+  stringstream z(temp.at(9));
+  unsigned int ser; 
+  z>>ser;
+  cout<<ser<<endl;
+  
   
   
   ListaNizom<Osoba> lp;
@@ -78,7 +88,7 @@ Korisnik kreirajKorisnika(string red){
     
   int main(){
   listaFilmova Videoteka;
-  ListaKorisnika Clanovi;
+//  ListaKorisnika Clanovi;
   
   ifstream infile;
   infile.open("Arhiva.txt");
@@ -87,21 +97,24 @@ Korisnik kreirajKorisnika(string red){
     exit(1);
   }
   string red;
-  while(getline(infile,red)){
-    Clanovi.dodajKorisnika(kreirajKorisnika(red));
-  }
+//  while(getline(infile,red)){
+//    Clanovi.dodajKorisnika(kreirajKorisnika(red));
+//  }
   infile.close();
 
   
   infile.open("lista_filmova.txt");
-  if(infile.fail()){cerr<<"Greska.Terminiraj."<<endl;exit(1);}
+  if(infile.fail()){
+    cerr<<"Greska.Terminiraj."<<endl;
+    exit(1);
+  }
 
   while(getline(infile,red)){
-    cout<<red<<endl;
     Videoteka.dodajFilm(kreiraj(red));
+    Videoteka.getFilmovi().dohvatiEl(Videoteka.trenutnoStanje()-1).setSerijski(i);
+    i++;
     }
-
-  infile.close();
+  
 
   Admin admin;
   int menu=0;
@@ -113,8 +126,10 @@ Korisnik kreirajKorisnika(string red){
   //else if - odraditi pretragu korisnika po imenu i lozinci
   //te postaviti menu na 2
   //else - ako nijedan unos nije zadocoljen terminirati program
-  if(menu) cout<<ime<<", dobrodosli u videoteku "<<Videoteka.getImeV()<<endl;
-  if(menu==0) cout<<"Unos nije validan. Program se terminira!"<<endl;
+  if(menu) 
+    cout<<endl<<ime<<", dobrodosli u videoteku "<<Videoteka.getImeV()<<endl;
+  if(menu==0) 
+    cout<<"Unos nije validan. Program se terminira!"<<endl;
   if(menu==1){
   int izlaz=0;
   int odabir=0;
@@ -160,6 +175,7 @@ Korisnik kreirajKorisnika(string red){
                cout<<endl;
                break;
       case 4 : Videoteka.dodajFilm();
+               i++;
                cout<<endl;
                break;
       case 5 : cout<<"Unesite serijski broj filma: ";
