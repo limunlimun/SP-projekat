@@ -22,7 +22,9 @@ class ListaKorisnika
 		
 		void kreirajKorisnika();// gotov
 		void obrisiKorisnika(std::string x); // gotov
-		int pretragaKorisnika(std::string x); // pretraga
+    int pretragaKorisnikaJMBG(std::string x);
+    int pretragaKorisnika2(std::string x,std::string y);
+    int pretragaKorisnika(std::string x); // pretraga
 		void dodajKorisnika(Korisnik x);	// gotovo
 		
 		void iznajmiFilm(listaFilmova x); //gotovo
@@ -34,6 +36,7 @@ class ListaKorisnika
 		size_t brojClanova();	// gotov
 		void sortDatum();//
 		void sortAlfa();//
+    ListaNizom<Korisnik>& getBaza(){return this->_database;}
 };
 
 ListaKorisnika::ListaKorisnika()
@@ -71,10 +74,28 @@ void ListaKorisnika::dodajKorisnika(Korisnik x)
 	}
 }
 
+int ListaKorisnika::pretragaKorisnikaJMBG(std::string x){
+  int trind=-1;
+  for(int i=0;i<_database.velicina();i++){
+    if(_database.dohvatiEl(i).getOsoba().getJMBG()==x)
+      trind=i;
+  }
+  return trind;
+}
+
+int ListaKorisnika::pretragaKorisnika2(std::string x,std::string y){
+  int trind=-1;
+  for(int i=0;i<_database.velicina();i++){
+    if(_database.dohvatiEl(i).getOsoba().getIme()==x && _database.dohvatiEl(i).getOsoba().getJMBG()==y)
+      trind=i;
+  }
+  return trind;
+}
+
 int ListaKorisnika::pretragaKorisnika(std::string x)
 {
 	int trind=-1;
-	for(int i=0;i<_database.maxVelicina()-1;i++)
+	for(int i=0;i<_database.velicina();i++)
 	{
 		
 		if(_database.dohvatiEl(i).getOsoba().getIme()==x || _database.dohvatiEl(i).getOsoba().getPrezime()==x)
@@ -87,7 +108,7 @@ int ListaKorisnika::pretragaKorisnika(std::string x)
 
 void ListaKorisnika::obrisiKorisnika(std::string x)
 {
-	int t=pretragaKorisnika(x);
+	int t=pretragaKorisnikaJMBG(x);
 	if(t != -1)
 	_database.ukloniSaLokacije(t);
 	else
@@ -175,18 +196,18 @@ void ListaKorisnika::vratiFilm(listaFilmova x)
 		Film pom1=x.getFilmovi().dohvatiEl(pom);
 		pom1.setBrKopija(pom1.getBrKopija()+1);
 		x.getFilmovi().zamijeniNaLokaciji(pom,pom1);
-		std::cout<<"Film je vracen!"<<std::cout;
+		std::cout<<"Film je vracen!"<<std::endl;
 		
 		
 	}
 	
 }
 
-void ListaKorisnika::prikazStanja()
-{
-	std::cout<<_database<<std::endl;
-	std::cout<<"Ukupno "<<brojClanova()<<" korisnika"<<std::endl;
-}
+//void ListaKorisnika::prikazStanja()
+//{
+//	std::cout<<_database<<std::endl;
+//	std::cout<<"Ukupno "<<brojClanova()<<" korisnika"<<std::endl;
+//}
 
 
 void ListaKorisnika::azuriranjeKorisnika(std::string x)

@@ -200,7 +200,7 @@ int main(){
       case 7 : cout<<"Unesite ime i prezime korisnika: ";
                cin.clear();
                cin>>ime>>prezime;
-               ind=Clanovi.pretragaKorisnika(ime,prezime);
+               ind=Clanovi.pretragaKorisnika2(ime,prezime);
                if(ind==-1)
                  cout<<"Korisnike nije pronadjen!"<<endl;
                else
@@ -210,17 +210,17 @@ int main(){
       case 8 : cout<<"Unesite ime i prezime korisnika: ";
                cin.clear();
                cin>>ime>>prezime;
-               ind=Clanovi.pretragaKorisnika(ime,prezime);
+               ind=Clanovi.pretragaKorisnika2(ime,prezime);
                if(ind==-1) 
                  cout<<"Korisnik nije pronadjen!"<<endl;
                else cout<<"Korisnik se nalazi u bazi!"<<endl;
                break;
       case 9 : Clanovi.kreirajKorisnika();
                break;
-      case 10 : cout<<"Unesite ime i JMBG korisnika: ";
+      case 10 : cout<<"Unesite JMBG korisnika: ";
                 cin.clear();
-                cin>>ime>>jmbg;
-                Clanovi.obrisiKorisnika(ime,jmbg);
+                cin>>jmbg;
+                Clanovi.obrisiKorisnika(jmbg);
                 break;
       case 11 : break;
       case 12 : break;
