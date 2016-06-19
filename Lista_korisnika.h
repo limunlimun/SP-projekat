@@ -21,12 +21,12 @@ class ListaKorisnika
 		~ListaKorisnika(); // gotov
 		
 		void kreirajKorisnika();// gotov
-		void obrisiKorisnika(std::string x); // 
+		void obrisiKorisnika(std::string x); // gotov
 		int pretragaKorisnika(std::string x); // pretraga
 		void dodajKorisnika(Korisnik x);	// gotovo
 		
 		void iznajmiFilm(listaFilmova x); //gotovo
-		void vratiFilm(listaFilmova x); //
+		void vratiFilm(listaFilmova x); //gotovo
 		
 		void prikazStanja(); //ispisuje sve relevantne podatke za biblioteku
 		void Blacklist();	//gotovo
@@ -72,7 +72,7 @@ void ListaKorisnika::dodajKorisnika(Korisnik x)
 int ListaKorisnika::pretragaKorisnika(std::string x)
 {
 	int trind=-1;
-	for(int i=0;i<_database.maxVelicina();i++)
+	for(int i=0;i<_database.maxVelicina()-1;i++)
 	{
 		
 		if(_database.dohvatiEl(i).getOsoba().getIme()==x || _database.dohvatiEl(i).getOsoba().getPrezime()==x)
@@ -148,10 +148,15 @@ void ListaKorisnika::iznajmiFilm(listaFilmova x)
 		std::cout<<"Unesite ime vaseg filma: "<<std::endl;
 		cin.clear();
 		cin>>ime;
-		if(x.pregledFilma(ime))
-		x.posudiFilm(x.pretrazi(ime,0));
-		_database.dohvatiEl(uslov).setBrPF(_database.dohvatiEl(uslov).getBrPF()+1);
-		std::cout<<"Uspjesno obavljena transakcija! Uzivajte !"<<std::endl;
+		int t=x.pretrazi(ime,0);
+		if(x.pregledFilma(ime)!=0)
+		{
+			Film s=x.getFilmovi().dohvatiEl(t);
+			s.setBrKopija(s.getBrKopija()-1);
+			x.getFilmovi().zamijeniNaLokaciji(t,s);
+			_database.dohvatiEl(uslov).setBrPF(_database.dohvatiEl(uslov).getBrPF()+1);
+			std::cout<<"Uspjesno obavljena transakcija! Uzivajte !"<<std::endl;
+		}
 	}
 	
 }
@@ -172,7 +177,7 @@ void ListaKorisnika::vratiFilm(listaFilmova x)
 		Film pom1=x.getFilmovi().dohvatiEl(pom);
 		pom1.setBrKopija(pom1.getBrKopija()+1);
 		x.getFilmovi().zamijeniNaLokaciji(pom,pom1);
-		std::cout<<"Film je vracen"<<std::cout;
+		std::cout<<"Film je vracen!"<<std::cout;
 		
 		
 	}
