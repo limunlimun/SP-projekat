@@ -12,13 +12,13 @@ using namespace std;
 
 int ss =1000;
 int poc=1;
-
+//pomocne globalne varijable za rucno kreiranje JMBG
 string pd[]={"01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"};
 string pm[]={"01","02","03","04","05","06","07","08","09","10","11","12"};
 string pg[]={"990","991","992","993","994","995","996","997","998","999"};
 string pn[]={"180","185"};
 string pn2[]={"070","071","072","073","074","075","076","077","078","079","080","081","082","083","084","085","086","087","088","089"};
-
+//funkcija za rastavljanje elemenata unutar jedne liste
 vector<Osoba> rastaviOsobe(string lista){
   stringstream x(lista);
   string novi;
@@ -35,7 +35,7 @@ vector<Osoba> rastaviOsobe(string lista){
   }
   return povratni;
 }
-
+//funkcija za rastavljanje stringa na podstringove
 vector<string> rastavi(string red){
   stringstream x(red);
   string novi;
@@ -43,7 +43,7 @@ vector<string> rastavi(string red){
   while(getline(x,novi,';')) povratni.push_back(novi);
   return povratni;
 }
-
+//funkcija za kreiranje filma iz proslijedjenog reda iz file-a
 Film kreiraj(string red){
   vector<string> temp=rastavi(red);
   Osoba rez;
@@ -73,7 +73,7 @@ Film kreiraj(string red){
 return pom;
 }
 
-
+//funkcija za kreiranje korisnika na osnovu proslijedjenog reda iz file-a
 Korisnik kreirajKorisnika(string red){
   vector<string> temp=rastavi(red);
   Osoba o(temp[1],temp[0],temp[2]);
@@ -90,7 +90,7 @@ Korisnik kreirajKorisnika(string red){
   Korisnik povratni(o,d,br);
   return povratni;
 }
-    
+//funkcija za kreiranje unosa iz historije videoteke    
 Historija kreirajHis(string red){
   vector<string> temp=rastavi(red);
   stringstream a(temp.at(1));
@@ -100,13 +100,15 @@ Historija kreirajHis(string red){
   return povratna;
 }
 
+//glavni program
 int main(){
+  //osnovne liste za rad u videoteci
   listaFilmova Videoteka;
   ListaKorisnika Clanovi;
   ListaHistorija UkupnaH;
   ListaHistorija TrenutnaH;
   Historija h;
-  
+  //upis clanova
   ifstream infile;
   infile.open("Arhiva.txt");
   if(infile.fail()){
@@ -130,6 +132,7 @@ int main(){
   }
   infile.close();
 
+  //upis dosadasnje historije videoteke
   infile.open("ukhistorija.txt");
   if(infile.fail()){
     cerr<<"Greska.Terminiraj."<<endl;
@@ -141,6 +144,7 @@ int main(){
   }
   infile.close();
 
+  //upis trenutnog stanja podignutih filmova
   infile.open("trhistorija.txt");
   if(infile.fail()){
     cerr<<"Greska.Terminiraj."<<endl;
@@ -152,7 +156,7 @@ int main(){
   }
   infile.close();
 
-  
+  //upis filmova u videoteku
   infile.open("lista_filmova.txt");
   if(infile.fail()){
     cerr<<"Greska.Terminiraj."<<endl;
@@ -174,6 +178,7 @@ int main(){
 
   
 
+  //login administratora ili korisnika
   int indCl=-1;
   Admin admin;
   int menu=0;
@@ -194,7 +199,8 @@ int main(){
   if(menu==0) 
     cout<<"Unos nije validan. Program se terminira!"<<endl;
   if(menu==1){
-    
+  
+    //interface videoteke za administratora sa svim opcijama
   int izlaz=0;
   int odabir=0;
   while(izlaz!=1){
@@ -226,22 +232,27 @@ int main(){
     int serijski;
     int temp=0;
     
+    //implementacija opcija iz administratorskog interface-a
     switch(odabir){
-      case 1 : Videoteka.print();
+      case 1 : //ispis svih filmova sa svim detaljima
+               Videoteka.print();
                cout<<endl;
                break;
-      case 2 : cout<<"Unesite naziv filma: ";
+      case 2 : //pretraga filmova po nazivu
+               cout<<"Unesite naziv filma: ";
                cin.clear();cin>>pretrazi;
                temp=Videoteka.pretrazi(pretrazi);
                cout<<"Pronadjeno je "<<temp<<" filmova."<<endl;
                break;
-      case 3 : cout<<"Unesite naziv filma: ";
+      case 3 : //ispisivanje svih detalja odredjenog filma
+               cout<<"Unesite naziv filma: ";
                cin.clear();cin>>pretrazi;cout<<endl;
                temp=Videoteka.pregledFilma(pretrazi);
                if(!temp) cout<<"Film nije pronadjen"<<endl;
                cout<<endl;
                break;
-      case 4 : Videoteka.dodajFilm();
+      case 4 : //upis filma u videoteku
+               Videoteka.dodajFilm();
                cout<<"Unesite serijski broj:  "<<endl;
                cin.clear();
                while(cin>>serijski){
@@ -253,22 +264,26 @@ int main(){
                Videoteka.getFilmovi().dohvatiEl(Videoteka.getFilmovi().velicina()-1).setSerijski(serijski);
                cout<<endl;
                break;
-      case 5 : cout<<"Unesite serijski broj filma: ";
+      case 5 : //brisanje filma iz videoteke
+               cout<<"Unesite serijski broj filma: ";
                cin.clear();cin>>serijski;
                Videoteka.ukloniFilm(serijski);
                cout<<endl;
                break;
-      case 6 : cout<<"Unesite serijski broj filma: ";
+      case 6 : //azuriranje filma
+               cout<<"Unesite serijski broj filma: ";
                cin.clear(); cin>>serijski;
                Videoteka.azurirajFilm(serijski);
                cout<<endl;
                break;
-      case 7 : cout<<endl<<"Ime i JMBG korisnika:"<<endl;
+      case 7 : //pregled clanova videoteke
+               cout<<endl<<"Ime i JMBG korisnika:"<<endl;
                for(int i=0;i<Clanovi.brojClanova();i++)
                  cout<<Clanovi.getBaza().dohvatiEl(i).getOsoba().getIme()<<" "<<Clanovi.getBaza().dohvatiEl(i).getOsoba().getJMBG()<<endl;
                cout<<endl;
                break;
-      case 8 : cout<<"Unesite ime i jmbg korisnika: ";
+      case 8 : //pretraga odredjenog korisnika
+               cout<<"Unesite ime i jmbg korisnika: ";
                cin.clear();
                cin>>ime>>prezime;
                ind=Clanovi.pretragaKorisnika2(ime,prezime);
@@ -276,14 +291,17 @@ int main(){
                  cout<<"Korisnik nije pronadjen!"<<endl;
                else cout<<"Korisnik se nalazi u bazi!"<<endl;
                break;
-      case 9 : Clanovi.kreirajKorisnika();
+      case 9 : //kreiranje novog korisnika i upisivanje u bazu korisnika
+               Clanovi.kreirajKorisnika();
                break;
-      case 10 : cout<<"Unesite JMBG korisnika: ";
+      case 10 : //brisanje korisnika iz baze clanova 
+               cout<<"Unesite JMBG korisnika: ";
                 cin.clear();
                 cin>>jmbg;
                 Clanovi.obrisiKorisnika(jmbg);
                 break;
-      case 11 : cout<<"Unesite JMBG korisnika: ";
+      case 11 : //azuriranje odredjenog korisnika
+                cout<<"Unesite JMBG korisnika: ";
                 cin.clear();
                 cin>>jmbg;
                 Clanovi.azuriranjeKorisnika(jmbg);
@@ -309,16 +327,19 @@ int main(){
                     cout<<"Serijski broj podignutog filma: "<<UkupnaH.getLH().dohvatiEl(i).getSer()<<endl;
                 }
                 break;
-      case 14 : cout<<"Unesite ime i JMBG: ";
+      case 14 : //dozvola korisniku za koristenje videoteke
+                cout<<"Unesite ime:";
                 cin.clear();
-                cin>>ime>>lozinka;
+                cin>>ime;
+                lozinka=getpass("Unesite JMBG");
                 if(Clanovi.pretragaKorisnika2(ime,lozinka)!=-1){
                   menu=2;
                   indCl=Clanovi.pretragaKorisnika2(ime,lozinka);
                   cout<<endl<<ime<<" , dobrodosli u videoteku "<<Videoteka.getImeV()<<endl;
                 }
 
-      case 15 : izlaz=1;
+      case 15 : //napustanje programa
+                izlaz=1;
                 break;
       default : cout<<"Pogresan unos. Program se terminira!"<<endl;
                 izlaz=1;
@@ -330,9 +351,11 @@ int main(){
   }//kraj while
 }//kraj if(menu)
 
+//korisnicki interface videoteke
 if(menu==2){
   int izlaz=0;
   int odabir=0;
+  //opcije dostupne korisniku
   while(izlaz!=1){
     cout<<endl<<endl;
     cout<<"Ponudjene opcije: "<<endl;
@@ -352,9 +375,11 @@ if(menu==2){
     int temp;
     int serijski;
     int brojac=0;
-
+    
+    //implementacija korisnickih opcija
     switch(odabir){
-      case 1 : Videoteka.print();
+      case 1 : //pregled sadrzaja videoteke
+               Videoteka.print();
                cout<<endl;
                break;
       case 2 : //metod za pretragu filma
@@ -435,7 +460,7 @@ if(menu==2){
   }//kraj while
 }//kraj if
 
-
+//ispis svih rezultata programa u memoriju(file-ove) koji ce se koristiti u iducem pokretanjuprograma
 ofstream ofileF("lista_filmova.txt");
 for(int i=0;i<Videoteka.trenutnoStanje();i++)
   ofileF<<Videoteka.getFilmovi().dohvatiEl(i).pripremiIspis()<<endl;
