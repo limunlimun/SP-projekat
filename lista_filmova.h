@@ -12,6 +12,7 @@ class listaFilmova{
     ~listaFilmova()=default;
     int trenutnoStanje();
     void print();
+    int pretraziSer(int serijski);
     int pretrazi(std::string ime,int ispis=0);
     int pregledFilma(std::string ime);
     void posudiFilm(int serial);
@@ -116,6 +117,17 @@ void listaFilmova::print(){
    filmovi.dohvatiEl(i).printFilm();
    cout<<endl;
 }}
+
+int listaFilmova::pretraziSer(int serijski){
+  int trind=-1;
+  for(int i=0;i<filmovi.velicina();i++){
+    if(filmovi.dohvatiEl(i).getSerijski()==serijski){
+      trind=i;
+      break;
+  }
+}
+  return trind;
+  }
 
 int listaFilmova::pretrazi(std::string ime,int ispis){
   int brojac=0;

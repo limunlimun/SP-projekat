@@ -27,8 +27,8 @@ class ListaKorisnika
     int pretragaKorisnika(std::string x); // pretraga
 		void dodajKorisnika(Korisnik x);	// gotovo
 		
-		void iznajmiFilm(listaFilmova x); //gotovo
-		void vratiFilm(listaFilmova x); //gotovo
+		void iznajmiFilm(listaFilmova& x,std::string jmbg); //gotovo
+		void vratiFilm(listaFilmova& x,std::string jmbg); //gotovo
 		void azuriranjeKorisnika(std::string x);//izrada
 		void prikazStanja(); //ispisuje sve relevantne podatke za biblioteku
 		void Blacklist();	//gotovo
@@ -152,50 +152,50 @@ void ListaKorisnika::kreirajKorisnika()
 	std::cout<<"Korisnik vec postoji u bazi podataka"<<std::endl;
 }
 
-void ListaKorisnika::iznajmiFilm(listaFilmova x)
-{
-	std::cout<<"Unesite ime korisnika: "<<std::endl;
-	std::string ime;
-	cin>>ime;
-	int uslov=pretragaKorisnika(ime);
-	if(uslov==-1)
-	std::cout<<"Niste prijavljeni u videoteku!"<<std::endl;
-	
-	else
-	{
+void ListaKorisnika::iznajmiFilm(listaFilmova& x,std::string jmbg)
+{   
+    int uslov=pretragaKorisnikaJMBG(jmbg);
+	  int serijski;
+    std::string ime;
 		x.print();
 		std::cout<<"Unesite ime vaseg filma: "<<std::endl;
 		cin.clear();
 		cin>>ime;
 		int t=x.pretrazi(ime,0);
+    if(t>1){
+      cout<<"Unesite serijski broj filma: ";
+      cin.clear();
+      cin>>serijski;
+      t=x.pretraziSer(serijski);
+    }
 		if(x.pregledFilma(ime)!=0)
 		{
-			Film s=x.getFilmovi().dohvatiEl(t);
-			s.setBrKopija(s.getBrKopija()-1);
-			x.getFilmovi().zamijeniNaLokaciji(t,s);
+			x.getFilmovi().dohvatiEl(t).setBrKopija(x.getFilmovi().dohvatiEl(t).getBrKopija()-1);
+
+		
 			_database.dohvatiEl(uslov).setBrPF(_database.dohvatiEl(uslov).getBrPF()+1);
 			std::cout<<"Uspjesno obavljena transakcija! Uzivajte !"<<std::endl;
 		}
 	}
 	
-}
 
-void ListaKorisnika::vratiFilm(listaFilmova x)
+
+void ListaKorisnika::vratiFilm(listaFilmova& x,std::string jmbg)
 {
 	
-	std::cout<<"Unesite ime filma kojeg vracate:"<<std::endl;
-	string ime;
-	cin>>ime;
-	int pom=x.pretrazi(ime,1);
-	if(pom!=1)
+	std::cout<<"Unesite serijski broj filma kojeg vracate:"<<std::endl;
+	int ser;
+	cin>>ser;
+	int pom=x.pretraziSer(ser);
+	if(pom==-1)
 	{
 		std::cout<<"Greska ! Film nije u bazi podataka!"<<std::endl;
 	}
 	else
 	{
-		Film pom1=x.getFilmovi().dohvatiEl(pom);
-		pom1.setBrKopija(pom1.getBrKopija()+1);
-		x.getFilmovi().zamijeniNaLokaciji(pom,pom1);
+		x.getFilmovi().dohvatiEl(pom).setBrKopija(x.getFilmovi().dohvatiEl(pom).getBrKopija()+1);
+		int in=pretragaKorisnikaJMBG(jmbg);
+    _database.dohvatiEl(in).setBrPF(_database.dohvatiEl(in).getBrPF()-1);
 		std::cout<<"Film je vracen!"<<std::endl;
 		
 		
@@ -212,7 +212,11 @@ void ListaKorisnika::vratiFilm(listaFilmova x)
 
 void ListaKorisnika::azuriranjeKorisnika(std::string x)
 {
-	int in=pretragaKorisnika(x);
+	int in=pretragaKorisnikaJMBG(x);
+  if(in==-1){
+    cout<<"Korisnik nije pronadjen!"<<endl;
+    return ;
+  }
 	std::cout<<"Koji aspekt zelite azurirati?"<<std::endl;
 	std::cout<<"1.Datum\n2.Ime\3.Prezime\4.Broj posudjenih filmova"<<std::endl;
 	int izbor;

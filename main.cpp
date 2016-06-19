@@ -122,7 +122,7 @@ int main(){
     
   }
 
-
+  int indCl=-1;
   Admin admin;
   int menu=0;
   cout<<"Unesite korisnicko ime i password: ";
@@ -130,9 +130,12 @@ int main(){
   string lozinka;
   cin>>ime>>lozinka;
   if (admin.login(ime,lozinka)) menu=1;
-  //else if - odraditi pretragu korisnika po imenu i lozinci
-  //te postaviti menu na 2
-  //else - ako nijedan unos nije zadocoljen terminirati program
+  else if(Clanovi.pretragaKorisnika2(ime,lozinka)!=-1) {
+    menu=2;
+    indCl=Clanovi.pretragaKorisnika2(ime,lozinka);
+  }
+  else 
+    menu=0;
   if(menu) 
     cout<<endl<<ime<<", dobrodosli u videoteku "<<Videoteka.getImeV()<<endl;
   if(menu==0) 
@@ -222,7 +225,11 @@ int main(){
                 cin>>jmbg;
                 Clanovi.obrisiKorisnika(jmbg);
                 break;
-      case 11 : break;
+      case 11 : cout<<"Unesite JMBG korisnika: ";
+                cin.clear();
+                cin>>jmbg;
+                Clanovi.azuriranjeKorisnika(jmbg);
+                break;
       case 12 : break;
       case 13 : break;
       case 14 : izlaz=1;
@@ -263,21 +270,27 @@ if(menu==2){
       case 1 : Videoteka.print();
                cout<<endl;
                break;
-      case 2 : cout<<"Unesite naziv filma: ";
+      case 2 : //metod za pretragu filma
+               cout<<"Unesite naziv filma: ";
                cin.clear(); cin>>pretrazi;
                temp=Videoteka.pretrazi(pretrazi);
                cout<<"Pronadjeno je "<<temp<<" filmova."<<endl;
                cout<<endl;
                break;
-      case 3 : cout<<"Unesite naziv filma: ";
+      case 3 : //metod za pregled filma
+               cout<<"Unesite naziv filma: ";
                cin.clear(); cin>>pretrazi;
                temp=Videoteka.pregledFilma(pretrazi);
                if(!temp) cout<<"Film nije pronadjen"<<endl;
                cout<<endl;
                break;
       case 4 : //metod za posudjivanje filma
+               if(Clanovi.getBaza().dohvatiEl(indCl).getBrPF()<3){
+                 Clanovi.iznajmiFilm(Videoteka,lozinka);
+               }
                break;
       case 5 : //metod za vracanje filma
+               Clanovi.vratiFilm(Videoteka,lozinka);
                break;
       case 6 : break;
       case 7 : break;
