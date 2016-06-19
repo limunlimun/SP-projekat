@@ -21,8 +21,9 @@ class ListaKorisnika
 		~ListaKorisnika(); // gotov
 		
 		void kreirajKorisnika();// gotov
-		void obrisiKorisnika(std::string x); // gotov
-		int pretragaKorisnika(std::string x); // pretraga
+		void obrisiKorisnika(std::string x,std::string y); // gotov
+		int pretragaKorisnika(std::string x,std::string y); // pretraga
+    int pretragaKorisnikaJMBG(std::string x,std::string y);
 		void dodajKorisnika(Korisnik x);	// gotovo
 		
 		void iznajmiFilm(listaFilmova x); //gotovo
@@ -32,6 +33,8 @@ class ListaKorisnika
 		void Blacklist();	//gotovo
 		bool empty();	//gotov
 		size_t brojClanova();	// gotov
+
+    ListaNizom<Korisnik>& getBaza(){return _database;}
 };
 
 ListaKorisnika::ListaKorisnika()
@@ -57,25 +60,38 @@ ListaKorisnika::~ListaKorisnika()
 
 void ListaKorisnika::dodajKorisnika(Korisnik x)
 {
-	if(pretragaKorisnika(x.getOsoba().getIme())!=-1 && pretragaKorisnika(x.getOsoba().getPrezime())!=-1)
-	{
+ int br=0;
+  for(int i=0;i<_database.velicina();i++){
+    if(_database.dohvatiEl(i).getOsoba().getJMBG()==x.getOsoba().getJMBG()) 
+    { cout<<"JMBG u upotrebi!"<<endl;
+      br=0;
+      break;
+  }
+    else br=1;
+  }
+	if(br){
 	_database.dodajNaKraj(x);
 	_size++;
-	}
 	
-	else
-	{
-		std::cout<<"Vec postoji korisnik sa istim podacima"<<std::endl;
-	}
+}
 }
 
-int ListaKorisnika::pretragaKorisnika(std::string x)
+int ListaKorisnika::pretragaKorisnikaJMBG(std::string x,std::string y){
+  int trind=-1;
+  for(int i=0;i<_database.velicina();i++){
+    if(_database.dohvatiEl(i).getOsoba().getIme()==x && _database.dohvatiEl(i).getOsoba().getJMBG()==y)
+      trind=i;
+  }
+  return trind;
+}
+
+int ListaKorisnika::pretragaKorisnika(std::string x,std::string y)
 {
 	int trind=-1;
 	for(int i=0;i<_database.maxVelicina()-1;i++)
 	{
 		
-		if(_database.dohvatiEl(i).getOsoba().getIme()==x || _database.dohvatiEl(i).getOsoba().getPrezime()==x)
+		if(_database.dohvatiEl(i).getOsoba().getIme()==x && _database.dohvatiEl(i).getOsoba().getPrezime()==y)
 		trind=i;
 		
 		else
@@ -87,9 +103,9 @@ int ListaKorisnika::pretragaKorisnika(std::string x)
 	return trind;
 }
 
-void ListaKorisnika::obrisiKorisnika(std::string x)
+void ListaKorisnika::obrisiKorisnika(std::string x,std::string y)
 {
-	int t=pretragaKorisnika(x);
+	int t=pretragaKorisnikaJMBG(x,y);
 	if(t != -1)
 	_database.ukloniSaLokacije(t);
 	else
@@ -127,7 +143,7 @@ void ListaKorisnika::kreirajKorisnika()
 	cin>>j;
 	novi.getDatum().setGodina(j);
 	
-	if(pretragaKorisnika(novi.getOsoba().getIme())==-1&& pretragaKorisnika(novi.getOsoba().getJMBG())==-1)
+	if(pretragaKorisnika(novi.getOsoba().getIme(),novi.getOsoba().getJMBG())==-1)
 	dodajKorisnika(novi);
 	else
 	std::cout<<"Korisnik vec postoji u bazi podataka"<<std::endl;
@@ -135,11 +151,10 @@ void ListaKorisnika::kreirajKorisnika()
 
 void ListaKorisnika::iznajmiFilm(listaFilmova x)
 {
-	std::cout<<"Unesite ime korisnika: "<<std::endl;
-	std::string ime;
-	cin>>ime;
-	int uslov=pretragaKorisnika(ime);
-	if(uslov==-1)
+	std::cout<<"Unesite ime korisnika i JMBG: "<<std::endl;
+	std::string ime,jmbg;
+	cin>>ime>>jmbg;
+	int uslov=pretragaKorisnikaJMBG(ime,jmbg); if(uslov==-1)
 	std::cout<<"Niste prijavljeni u videoteku!"<<std::endl;
 	
 	else
@@ -177,18 +192,18 @@ void ListaKorisnika::vratiFilm(listaFilmova x)
 		Film pom1=x.getFilmovi().dohvatiEl(pom);
 		pom1.setBrKopija(pom1.getBrKopija()+1);
 		x.getFilmovi().zamijeniNaLokaciji(pom,pom1);
-		std::cout<<"Film je vracen!"<<std::cout;
+		std::cout<<"Film je vracen!"<<std::endl;
 		
 		
 	}
 	
 }
 
-void ListaKorisnika::prikazStanja()
-{
-	std::cout<<_database<<std::endl;
-	std::cout<<"Ukupno "<<brojClanova()<<" korisnika"<<std::endl;
-}
+//void ListaKorisnika::prikazStanja()
+//{
+//	std::cout<<_database<<std::endl;
+//	std::cout<<"Ukupno "<<brojClanova()<<" korisnika"<<std::endl;
+//}
 
 
 

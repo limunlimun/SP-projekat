@@ -68,10 +68,6 @@ class Datum{
 		return false;
 	}
 	
-	friend std::ostream& operator<<(std::ostream& out,const Datum& x)
-	{
-		out<<x._dan<<"/"<<x._mjesec<<"/"<<x._godina<<std::endl;
-	}
-  };
+};
 
 #endif

@@ -1,6 +1,6 @@
 #include "admin.h"
 #include "lista_filmova.h"
-//#include "Lista_korisnika.h"
+#include "Lista_korisnika.h"
 //#include "lista.hxx"
 #include <fstream>
 #include <sstream>
@@ -86,7 +86,7 @@ Korisnik kreirajKorisnika(string red){
     
 int main(){
   listaFilmova Videoteka;
-//  ListaKorisnika Clanovi;
+  ListaKorisnika Clanovi;
   
   ifstream infile;
   infile.open("Arhiva.txt");
@@ -95,9 +95,11 @@ int main(){
     exit(1);
   }
   string red;
-//  while(getline(infile,red)){
-//    Clanovi.dodajKorisnika(kreirajKorisnika(red));
-//  }
+  Korisnik priv;
+  while(getline(infile,red)){
+    priv=kreirajKorisnika(red);
+    Clanovi.dodajKorisnika(priv);
+  }
   infile.close();
 
   
@@ -160,6 +162,8 @@ int main(){
     cin>>odabir;
     cout<<endl<<endl;
     //pomocne varijable koje ce se koristiti prilikom neke od navedenih opcija
+    string ime,prezime,jmbg;
+    int ind;
     string pretrazi;
     int serijski;
     int temp;
@@ -193,10 +197,31 @@ int main(){
                Videoteka.azurirajFilm(serijski);
                cout<<endl;
                break;
-      case 7 : break;
-      case 8 : break;
-      case 9 : break;
-      case 10 : break;
+      case 7 : cout<<"Unesite ime i prezime korisnika: ";
+               cin.clear();
+               cin>>ime>>prezime;
+               ind=Clanovi.pretragaKorisnika(ime,prezime);
+               if(ind==-1)
+                 cout<<"Korisnike nije pronadjen!"<<endl;
+               else
+                 cout<<prezime<<" "<<ime<<" "<<Clanovi.getBaza().dohvatiEl(ind).getOsoba().getJMBG()<<endl;
+
+               break;
+      case 8 : cout<<"Unesite ime i prezime korisnika: ";
+               cin.clear();
+               cin>>ime>>prezime;
+               ind=Clanovi.pretragaKorisnika(ime,prezime);
+               if(ind==-1) 
+                 cout<<"Korisnik nije pronadjen!"<<endl;
+               else cout<<"Korisnik se nalazi u bazi!"<<endl;
+               break;
+      case 9 : Clanovi.kreirajKorisnika();
+               break;
+      case 10 : cout<<"Unesite ime i JMBG korisnika: ";
+                cin.clear();
+                cin>>ime>>jmbg;
+                Clanovi.obrisiKorisnika(ime,jmbg);
+                break;
       case 11 : break;
       case 12 : break;
       case 13 : break;
@@ -276,11 +301,11 @@ for(int i=0;i<Videoteka.trenutnoStanje();i++)
 
   ofile.close();
 
-//  ofile("Arhiva.txt");
- // for(int i=0;i<Clanovi.brojKorisnika();i++){
- //   ofile<<dohvati elemenat .ispis()<<endl;
- // }
- ofile.close();
+ofstream izlazni("Arhiva.txt");
+     for(int i=0;i<Clanovi.brojClanova();i++){
+      izlazni<<Clanovi.getBaza().dohvatiEl(i).ispis()<<endl;
+  }
+ izlazni.close();
 
   return 0;
 }
