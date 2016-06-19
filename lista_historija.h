@@ -10,10 +10,10 @@ class ListaHistorija{
     ListaHistorija()=default;
     ~ListaHistorija()=default;
     ListaNizom<Historija>& getLH(){return _lh;}
-    void dodajUnos(Historija h){
+    void dodajUnos(Historija& h){
       _lh.dodajNaKraj(h);
     }
-    void obrisiUnos(Historija h){
+    void obrisiUnos(Historija& h){
       for(int i=0;i<_lh.velicina();i++){
         if(_lh.dohvatiEl(i).getJM()==h.getJM() && _lh.dohvatiEl(i).getSer()==h.getSer()) 
           _lh.ukloniSaLokacije(i);
