@@ -4,14 +4,17 @@
 
 class Datum{
   private:
+    //osnovna konstrukcija datuma
     int _dan;
     int _mjesec;
     int _godina;
   public:
+    //konstruktori
     Datum()=default;
     Datum(int d,int m,int g):_dan(d),_mjesec(m),_godina(g){};
     ~Datum()=default;
 
+    //osnovni metodi za rad sa datumima
     int getDan(){return _dan;}
     int getMjesec(){return _mjesec;}
     int getGodina(){return _godina;}
@@ -20,6 +23,7 @@ class Datum{
 	void setMjesec(int j){this->_mjesec=j;}
     void setGodina(int j){this->_godina=j;}
     
+    //operatori za poredjenje datuma
     bool operator>(const Datum& x)
     {
     	if(this->_godina>x._godina)

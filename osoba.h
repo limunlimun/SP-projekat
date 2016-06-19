@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+//klasa sa osnovnim clanovima koji opisuju osobu
 class Osoba{
 	private: 
 	std::string _ime;
@@ -10,7 +11,7 @@ class Osoba{
   std::string _jmbg="0"; //za glumce,producente i scenariste ovo polje ce imati vrijednost 0
 	
 	public:
-	
+	//osnoni kontruktori
 	Osoba()=default;
 	
   Osoba(std::string ime,std::string prezime):_ime(ime),_prezime(prezime){};
@@ -26,6 +27,7 @@ class Osoba{
   _prezime=o._prezime;
   _jmbg=o._jmbg;
 	}
+  //osnovni operatori
 	void operator=(const Osoba & o){
   _ime=o._ime;
   _prezime=o._prezime;
@@ -39,6 +41,7 @@ class Osoba{
   _jmbg=std::move(o._jmbg);
 	}
 
+  //osnovni metodi za rad i interakciju sa klasom Osoba
 	std::string& getIme(){return this->_ime;};
 	
 	std::string& getPrezime(){return this->_prezime;}
@@ -55,6 +58,7 @@ class Osoba{
   std::cout<<_ime<<" "<<_prezime;
   }
   
+  //osnovni operatori za ispis i poredjenje osoba
   std::ostream& operator<<(std::ostream& out)
   {
   	out<<this->_ime<<" "<<this->_prezime<<"\t"<<this->_jmbg<<std::endl;

@@ -16,26 +16,30 @@ class ListaKorisnika
 		
 	
 	public:
-		
-		ListaKorisnika(); //  gotov
-		~ListaKorisnika(); // gotov
-		
-		void kreirajKorisnika();// gotov
-		void obrisiKorisnika(std::string x); // gotov
-    int pretragaKorisnikaJMBG(std::string x);
-    int pretragaKorisnika2(std::string x,std::string y);
+		//konstruktori
+		ListaKorisnika(); 
+		~ListaKorisnika();
+
+    // osnovne metode za rad sa bazom korisnika
+		void kreirajKorisnika();
+		void obrisiKorisnika(std::string x); 
+    int pretragaKorisnikaJMBG(std::string x);//pretraga po maticnom broju
+    int pretragaKorisnika2(std::string x,std::string y);//pretraga po imenu i maticnom broju
     int pretragaKorisnika(std::string x); // pretraga
-		void dodajKorisnika(Korisnik x);	// gotovo
+		void dodajKorisnika(Korisnik x);	//dodavanje novog korisnika
 		
-		int iznajmiFilm(listaFilmova& x,std::string jmbg); //gotovo
-		int vratiFilm(listaFilmova& x,std::string jmbg); //gotovo
-		void azuriranjeKorisnika(std::string x);//izrada
+		int iznajmiFilm(listaFilmova& x,std::string jmbg); 
+		int vratiFilm(listaFilmova& x,std::string jmbg); 
+		void azuriranjeKorisnika(std::string x);
 		void prikazStanja(); //ispisuje sve relevantne podatke za biblioteku
-		void Blacklist();	//gotovo
-		bool empty();	//gotov
-		size_t brojClanova();	// gotov
+		void Blacklist();	
+		bool empty();	//provjera je li lista prazna
+		size_t brojClanova();	
+
+    //metodi za sortiranje
 		void sortDatum();//
 		void sortAlfa();//
+    
     ListaNizom<Korisnik>& getBaza(){return this->_database;}
 };
 

@@ -5,20 +5,24 @@
 
 class listaFilmova{
   private:
+    //ime videoteke
     const std::string _imeV="Films and Structures";
+    //baza filmova
     ListaNizom<Film> filmovi;
   public:
+    // default konstruktor i destruktor
     listaFilmova()=default;
     ~listaFilmova()=default;
-    int trenutnoStanje();
-    void print();
-    int pretraziSer(int serijski);
-    int pretrazi(std::string ime,int ispis=0);
-    int pregledFilma(std::string ime);
+
+    int trenutnoStanje();//trenutna velicina baze filmova
+    void print();//ispis baze filmova
+    int pretraziSer(int serijski);//pretraga filmova po serijskom broju
+    int pretrazi(std::string ime,int ispis=0);//pretraga po imenu i ispis po zelji
+    int pregledFilma(std::string ime);//pregled svih detalja za film
     void posudiFilm(int serial);
     void vratiFilm(int serial);
-    void dodajFilm();
-    void dodajFilm(Film f);
+    void dodajFilm();//kreiranje i dodavanje novog filma
+    void dodajFilm(Film f);//dodavanje novog filma
     void ukloniFilm(int serial);
     void azurirajFilm(int serial);
 

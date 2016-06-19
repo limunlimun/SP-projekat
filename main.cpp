@@ -194,6 +194,7 @@ int main(){
   if(menu==0) 
     cout<<"Unos nije validan. Program se terminira!"<<endl;
   if(menu==1){
+    
   int izlaz=0;
   int odabir=0;
   while(izlaz!=1){

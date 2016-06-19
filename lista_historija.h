@@ -3,12 +3,16 @@
 
 #include "historija.h"
 #include "Lista_korisnika.h"
+//klasa u koju se upisuju rezultati metoda iznajmifilm i vratifilm
 class ListaHistorija{
   private:
     ListaNizom<Historija> _lh;
   public:
+    //osnovni konstruktor i destruktor
     ListaHistorija()=default;
     ~ListaHistorija()=default;
+
+    //osnovni metodi za rad za historijo
     ListaNizom<Historija>& getLH(){return _lh;}
     void dodajUnos(Historija& h){
       _lh.dodajNaKraj(h);

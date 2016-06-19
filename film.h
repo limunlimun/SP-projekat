@@ -6,8 +6,10 @@
 #include "korisnik.h"
 //#include "datum.h"
 
+//klasa za filmove
 class Film{
   private:
+    //clanovi pomocu kojih je film detaljno analiziran
     std::string _naziv;
     std::string _opis;
     Osoba _reziser;
@@ -19,6 +21,7 @@ class Film{
     unsigned int broj_kopija;
     int serijski;//jedinstveni kljuc ukoliko postoji vise filmova sa istim imenom
   public:
+    //osnovni konstruktori
     Film()=default;
     Film(std::string naziv,std::string opis,Osoba rez,ListaNizom<Osoba> lp,ListaNizom<Osoba> ls,ListaNizom<Osoba> lg,std::string komp,unsigned int godizd,unsigned int brkop,int ser):_naziv(naziv),_opis(opis),_reziser(rez),lista_producenata(lp),lista_scenarista(ls),lista_glumaca(lg),prod_komp(komp),god_izdavanja(godizd),broj_kopija(brkop),serijski(ser){};
     ~Film()=default;
@@ -47,6 +50,7 @@ class Film{
       serijski=f.serijski;
     }
 
+    //osnovni metodi za rad sa filmovima
     std::string getNaziv(){return _naziv;}
     std::string getOpis(){return _opis;}
     Osoba getOsoba(){return _reziser;}
@@ -68,6 +72,7 @@ class Film{
     void setGodIzd(int x){this->god_izdavanja=x;}
     void setBrKopija(int x){this->broj_kopija=x;}
     void setSerijski(int x){this->serijski=x;}
+    //osnovni assignment operatori
 	void operator=(const Film& x)
 	{
 		this->_naziv=x._naziv;
@@ -93,6 +98,7 @@ class Film{
 		this->_opis=std::move(x._opis);
 		this->_reziser=std::move(x._reziser);
 	}
+  //metod za prikaz filma i svih njegovih clanova
     void printFilm(){
       cout<<setw(4)<<" ";
       cout<<"Naziv: "<<_naziv<<endl;
@@ -129,6 +135,7 @@ class Film{
       cout<<endl;
 }
 
+//metod za kreiranje formata za ispis u file
 string pripremiIspis(){
   string povratni;
   povratni=_naziv+';'+_opis+';'+_reziser.getIme()+'.'+_reziser.getPrezime()+';';
