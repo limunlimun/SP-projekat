@@ -239,7 +239,15 @@ int main(){
                cout<<endl;
                break;
       case 4 : Videoteka.dodajFilm();
-               
+               cout<<"Unesite serijski broj:  "<<endl;
+               cin.clear();
+               while(cin>>serijski){
+                 if(Videoteka.pretraziSer(serijski)==-1) 
+                   break;
+                 else 
+                   cout<<"Serijski broj u upotrebi."<<endl<<"Unesite serijski broj: ";
+               } 
+               Videoteka.getFilmovi().dohvatiEl(Videoteka.getFilmovi().velicina()-1).setSerijski(serijski);
                cout<<endl;
                break;
       case 5 : cout<<"Unesite serijski broj filma: ";

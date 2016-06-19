@@ -101,13 +101,13 @@ Film kreirajFilm(){
   cin.clear(); 
   cin>>brkop;
 
-  cout<<"Unesite serijski broj"<<endl;
-  cout<<"NAPOMENA: ukoliko serijski broj vec postoji u videoteci, unos nece biti validan!"<<endl;
-  int ser; 
-  cin.clear(); 
-  cin>>ser;
+//  cout<<"Unesite serijski broj"<<endl;
+//  cout<<"NAPOMENA: ukoliko serijski broj vec postoji u videoteci, unos nece biti validan!"<<endl;
+//  int ser; 
+//  cin.clear(); 
+//  cin>>ser;
 
-  Film f(naziv,opis,rez,lp,ls,lg,prkomp,godizd,brkop,ser);
+  Film f(naziv,opis,rez,lp,ls,lg,prkomp,godizd,brkop,0);
   return f;
 }
 
