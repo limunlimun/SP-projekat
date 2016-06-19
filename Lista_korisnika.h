@@ -21,20 +21,19 @@ class ListaKorisnika
 		~ListaKorisnika(); // gotov
 		
 		void kreirajKorisnika();// gotov
-		void obrisiKorisnika(std::string x,std::string y); // gotov
-		int pretragaKorisnika(std::string x,std::string y); // pretraga
-    int pretragaKorisnikaJMBG(std::string x,std::string y);
+		void obrisiKorisnika(std::string x); // gotov
+		int pretragaKorisnika(std::string x); // pretraga
 		void dodajKorisnika(Korisnik x);	// gotovo
 		
 		void iznajmiFilm(listaFilmova x); //gotovo
 		void vratiFilm(listaFilmova x); //gotovo
-		
+		void azuriranjeKorisnika(std::string x);//izrada
 		void prikazStanja(); //ispisuje sve relevantne podatke za biblioteku
 		void Blacklist();	//gotovo
 		bool empty();	//gotov
 		size_t brojClanova();	// gotov
-
-    ListaNizom<Korisnik>& getBaza(){return _database;}
+		void sortDatum();//
+		void sortAlfa();//
 };
 
 ListaKorisnika::ListaKorisnika()
@@ -60,52 +59,35 @@ ListaKorisnika::~ListaKorisnika()
 
 void ListaKorisnika::dodajKorisnika(Korisnik x)
 {
- int br=0;
-  for(int i=0;i<_database.velicina();i++){
-    if(_database.dohvatiEl(i).getOsoba().getJMBG()==x.getOsoba().getJMBG()) 
-    { cout<<"JMBG u upotrebi!"<<endl;
-      br=0;
-      break;
-  }
-    else br=1;
-  }
-	if(br){
+	if(pretragaKorisnika(x.getOsoba().getIme())!=-1 && pretragaKorisnika(x.getOsoba().getPrezime())!=-1)
+	{
 	_database.dodajNaKraj(x);
 	_size++;
+	}
 	
-}
-}
-
-int ListaKorisnika::pretragaKorisnikaJMBG(std::string x,std::string y){
-  int trind=-1;
-  for(int i=0;i<_database.velicina();i++){
-    if(_database.dohvatiEl(i).getOsoba().getIme()==x && _database.dohvatiEl(i).getOsoba().getJMBG()==y)
-      trind=i;
-  }
-  return trind;
+	else
+	{
+		std::cout<<"Vec postoji korisnik sa istim podacima"<<std::endl;
+	}
 }
 
-int ListaKorisnika::pretragaKorisnika(std::string x,std::string y)
+int ListaKorisnika::pretragaKorisnika(std::string x)
 {
 	int trind=-1;
 	for(int i=0;i<_database.maxVelicina()-1;i++)
 	{
 		
-		if(_database.dohvatiEl(i).getOsoba().getIme()==x && _database.dohvatiEl(i).getOsoba().getPrezime()==y)
+		if(_database.dohvatiEl(i).getOsoba().getIme()==x || _database.dohvatiEl(i).getOsoba().getPrezime()==x)
 		trind=i;
 		
-		else
-		{
-			//implementirati binary search algoritam baziran na datumu to mogu ja implementirati sutra kad ustanem
-			
-		}
+		
 	}
 	return trind;
 }
 
-void ListaKorisnika::obrisiKorisnika(std::string x,std::string y)
+void ListaKorisnika::obrisiKorisnika(std::string x)
 {
-	int t=pretragaKorisnikaJMBG(x,y);
+	int t=pretragaKorisnika(x);
 	if(t != -1)
 	_database.ukloniSaLokacije(t);
 	else
@@ -143,7 +125,7 @@ void ListaKorisnika::kreirajKorisnika()
 	cin>>j;
 	novi.getDatum().setGodina(j);
 	
-	if(pretragaKorisnika(novi.getOsoba().getIme(),novi.getOsoba().getJMBG())==-1)
+	if(pretragaKorisnika(novi.getOsoba().getIme())==-1&& pretragaKorisnika(novi.getOsoba().getJMBG())==-1)
 	dodajKorisnika(novi);
 	else
 	std::cout<<"Korisnik vec postoji u bazi podataka"<<std::endl;
@@ -151,10 +133,11 @@ void ListaKorisnika::kreirajKorisnika()
 
 void ListaKorisnika::iznajmiFilm(listaFilmova x)
 {
-	std::cout<<"Unesite ime korisnika i JMBG: "<<std::endl;
-	std::string ime,jmbg;
-	cin>>ime>>jmbg;
-	int uslov=pretragaKorisnikaJMBG(ime,jmbg); if(uslov==-1)
+	std::cout<<"Unesite ime korisnika: "<<std::endl;
+	std::string ime;
+	cin>>ime;
+	int uslov=pretragaKorisnika(ime);
+	if(uslov==-1)
 	std::cout<<"Niste prijavljeni u videoteku!"<<std::endl;
 	
 	else
@@ -192,25 +175,91 @@ void ListaKorisnika::vratiFilm(listaFilmova x)
 		Film pom1=x.getFilmovi().dohvatiEl(pom);
 		pom1.setBrKopija(pom1.getBrKopija()+1);
 		x.getFilmovi().zamijeniNaLokaciji(pom,pom1);
-		std::cout<<"Film je vracen!"<<std::endl;
+		std::cout<<"Film je vracen!"<<std::cout;
 		
 		
 	}
 	
 }
 
-//void ListaKorisnika::prikazStanja()
-//{
-//	std::cout<<_database<<std::endl;
-//	std::cout<<"Ukupno "<<brojClanova()<<" korisnika"<<std::endl;
-//}
+void ListaKorisnika::prikazStanja()
+{
+	std::cout<<_database<<std::endl;
+	std::cout<<"Ukupno "<<brojClanova()<<" korisnika"<<std::endl;
+}
 
 
+void ListaKorisnika::azuriranjeKorisnika(std::string x)
+{
+	int in=pretragaKorisnika(x);
+	std::cout<<"Koji aspekt zelite azurirati?"<<std::endl;
+	std::cout<<"1.Datum\n2.Ime\3.Prezime\4.Broj posudjenih filmova"<<std::endl;
+	int izbor;
+	std::string g;
+	int j;
+	cin>>izbor;
+	switch (izbor)
+	{
+		case 1:
+				
+				cin>>j;
+				_database.dohvatiEl(in).getDatum().setDan(j);
+				cin>>j;
+				_database.dohvatiEl(in).getDatum().setMjesec(j);
+				cin>>j;
+				_database.dohvatiEl(in).getDatum().setGodina(j);
+				break;
+		case 2:
+			
+			cin>>g;
+			_database.dohvatiEl(in).getOsoba().setIme(g);
+			break;
+		case 3:
+			
+			cin>>g;
+			_database.dohvatiEl(in).getOsoba().setPrezime(g);
+		case 4:
+			cin>>j;
+			_database.dohvatiEl(in).getOsoba().setPrezime(g);
+		default:
+			std::cout<<"Opcija nije validna!"<<std::endl;
+			
+			
+				
+		
+	}
+}
 
 
+void ListaKorisnika::sortDatum()
+{
+	for(int i=0;i<_database.maxVelicina()-1;i++)
+	{
+		if(_database.dohvatiEl(i)>_database.dohvatiEl(i+1))
+		std::swap(_database.dohvatiEl(i),_database.dohvatiEl(i+1));
+		for (int j=i;j<_database.maxVelicina()-1;j++)
+		{
+			if(_database.dohvatiEl(j)>_database.dohvatiEl(j+1))
+		std::swap(_database.dohvatiEl(j),_database.dohvatiEl(j+1));
+		}
+	}
+}
 
+//u oba slucaja implementiran insertion algoritam , mada bi quicksort bio puno bolji
 
-
+void ListaKorisnika::sortAlfa()
+{
+	for(int i=0;i<_database.maxVelicina()-1;i++)
+	{
+		if(_database.dohvatiEl(i).getOsoba()>_database.dohvatiEl(i+1).getOsoba())
+		std::swap(_database.dohvatiEl(i),_database.dohvatiEl(i+1));
+		for (int j=i;j<_database.maxVelicina()-1;j++)
+		{
+			if(_database.dohvatiEl(j).getOsoba()>_database.dohvatiEl(j+1).getOsoba())
+		std::swap(_database.dohvatiEl(j),_database.dohvatiEl(j+1));
+		}
+	}
+}
 
 
 
