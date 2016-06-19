@@ -7,6 +7,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
+#include <unistd.h>
 using namespace std;
 
 int ss =1000;
@@ -176,10 +177,11 @@ int main(){
   int indCl=-1;
   Admin admin;
   int menu=0;
-  cout<<"Unesite korisnicko ime i password: ";
+  cout<<"Unesite korisnicko ime: ";
   string ime;
   string lozinka;
-  cin>>ime>>lozinka;
+  cin>>ime;
+  lozinka=getpass("Unesite password: ");
   if (admin.login(ime,lozinka)) menu=1;
   else if(Clanovi.pretragaKorisnika2(ime,lozinka)!=-1) {
     menu=2;
