@@ -1,5 +1,6 @@
 #ifndef _DATUM_H
 #define _DATUM_H
+#include<iostream>
 
 class Datum{
   private:
@@ -57,6 +58,19 @@ class Datum{
 		{
 			return false;
 		}
+	}
+	
+	bool operator==(const Datum& x)
+	{
+		if(_dan==x._dan && _mjesec==x._mjesec && _godina==x._godina)
+		return true;
+		else 
+		return false;
+	}
+	
+	friend std::ostream& operator<<(std::ostream& out,const Datum& x)
+	{
+		out<<x._dan<<"/"<<x._mjesec<<"/"<<x._godina<<std::endl;
 	}
   };
 
