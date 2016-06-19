@@ -112,21 +112,17 @@ int main(){
     cerr<<"Greska.Terminiraj."<<endl;
     exit(1);
   }
+  
   string red;
   Korisnik priv;
   string J;
   while(getline(infile,red)){
     priv=kreirajKorisnika(red);
-    
-    int dd=rand() % 27;
-    int mm=rand() % 11;
+    int dd=rand() % 28;
+    int mm=rand() % 12;
     int gg=rand() % 9;
     int nn=rand() % 1;
-    int nn2=rand() % 19;
-    dd++;
-    mm++;
-    gg++;
-    nn2++;
+    int nn2=rand() % 18;
     J=pd[dd]+pm[mm]+pg[gg]+pn[nn]+pn2[nn2];
     priv.getOsoba().setJMBG(J);
     Clanovi.dodajKorisnika(priv);
@@ -402,6 +398,7 @@ if(menu==2){
                cout<<"Pronadjenih unosa: "<<brojac<<endl;
                if(brojac){
                  for(int i=0;i<TrenutnaH.getLH().velicina();i++){
+                   if(TrenutnaH.getLH().dohvatiEl(i).getJM()==lozinka)
                    cout<<"Serijski broj filma: "<<TrenutnaH.getLH().dohvatiEl(i).getSer()<<endl;
                  }
                }
