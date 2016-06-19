@@ -1,7 +1,7 @@
 #include "admin.h"
 #include "lista_filmova.h"
 #include "Lista_korisnika.h"
-//#include "lista.hxx"
+#include "lista_historija.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -84,9 +84,21 @@ Korisnik kreirajKorisnika(string red){
   return povratni;
 }
     
+Historija kreirajHis(string red){
+  vector<string> temp=rastavi(red);
+  stringstream a(temp.at(1));
+  int s;
+  a>>s;
+  Historija povratna(temp[0],s);
+  return povratna;
+}
+
 int main(){
   listaFilmova Videoteka;
   ListaKorisnika Clanovi;
+  ListaHistorija UkupnaH;
+  ListaHistorija TrenutnaH;
+  Historija h;
   
   ifstream infile;
   infile.open("Arhiva.txt");
@@ -99,6 +111,28 @@ int main(){
   while(getline(infile,red)){
     priv=kreirajKorisnika(red);
     Clanovi.dodajKorisnika(priv);
+  }
+  infile.close();
+
+  infile.open("ukhistorija.txt");
+  if(infile.fail()){
+    cerr<<"Greska.Terminiraj."<<endl;
+    exit(1);
+  }
+  while(getline(infile,red)){
+    h=kreirajHis(red);
+    UkupnaH.dodajUnos(h);
+  }
+  infile.close();
+
+  infile.open("trhistorija.txt");
+  if(infile.fail()){
+    cerr<<"Greska.Terminiraj."<<endl;
+    exit(1);
+  }
+  while(getline(infile,red)){
+    h=kreirajHis(red);
+    TrenutnaH.dodajUnos(h);
   }
   infile.close();
 
@@ -121,6 +155,8 @@ int main(){
     Videoteka.getFilmovi().dohvatiEl(i).setSerijski(ss++);
     
   }
+
+  
 
   int indCl=-1;
   Admin admin;
@@ -230,8 +266,24 @@ int main(){
                 cin>>jmbg;
                 Clanovi.azuriranjeKorisnika(jmbg);
                 break;
-      case 12 : break;
-      case 13 : break;
+      case 12 : //pregled posudjenih filmova za korisnika
+                cout<<"Unesite JMBG korisnika: ";
+                cin.clear();
+                cin>>jmbg;
+                for(int i=0;i<TrenutnaH.getLH().velicina();i++){
+                  if(TrenutnaH.getLH().dohvatiEl(i).getJM()==jmbg)
+                    cout<<"Serijski broj podignutog filma: "<<TrenutnaH.getLH().dohvatiEl(i).getSer()<<endl;
+                }
+                break;
+      case 13 : //pregled historije posudjivanja
+                cout<<"Unesite JMBG korisnika: ";
+                cin.clear();
+                cin>>jmbg;
+                for(int i=0;i<UkupnaH.getLH().velicina();i++){
+                  if(UkupnaH.getLH().dohvatiEl(i).getJM()==jmbg)
+                    cout<<"Serijski broj podignutog filma: "<<UkupnaH.getLH().dohvatiEl(i).getSer()<<endl;
+                }
+                break;
       case 14 : izlaz=1;
                 break;
       default : cout<<"Pogresan unos. Program se terminira!"<<endl;
@@ -286,11 +338,22 @@ if(menu==2){
                break;
       case 4 : //metod za posudjivanje filma
                if(Clanovi.getBaza().dohvatiEl(indCl).getBrPF()<3){
-                 Clanovi.iznajmiFilm(Videoteka,lozinka);
+               serijski=Clanovi.iznajmiFilm(Videoteka,lozinka);
+               if(serijski!=-1){
+                 h.setJM(lozinka);
+                 h.setSer(serijski);
+               }
+               UkupnaH.dodajUnos(h);
+               TrenutnaH.dodajUnos(h);
                }
                break;
       case 5 : //metod za vracanje filma
-               Clanovi.vratiFilm(Videoteka,lozinka);
+               serijski=Clanovi.vratiFilm(Videoteka,lozinka);
+               if(serijski!=-1){
+                 h.setJM(lozinka);
+                 h.setSer(serijski);
+                 TrenutnaH.obrisiUnos(h);
+               }
                break;
       case 6 : break;
       case 7 : break;
@@ -308,17 +371,27 @@ if(menu==2){
 }//kraj if
 
 
-ofstream ofile("lista_filmova.txt");
+ofstream ofileF("lista_filmova.txt");
 for(int i=0;i<Videoteka.trenutnoStanje();i++)
-  ofile<<Videoteka.getFilmovi().dohvatiEl(i).pripremiIspis()<<endl;
+  ofileF<<Videoteka.getFilmovi().dohvatiEl(i).pripremiIspis()<<endl;
 
-  ofile.close();
+  ofileF.close();
 
-ofstream izlazni("Arhiva.txt");
+ofstream ofileC("Arhiva.txt");
      for(int i=0;i<Clanovi.brojClanova();i++){
-      izlazni<<Clanovi.getBaza().dohvatiEl(i).ispis()<<endl;
+      ofileC<<Clanovi.getBaza().dohvatiEl(i).ispis()<<endl;
   }
- izlazni.close();
+ ofileC.close();
+
+ ofstream ofileTH("trhistorija.txt");
+   for(int i=0;i<TrenutnaH.getLH().velicina();i++)
+     ofileTH<<TrenutnaH.getLH().dohvatiEl(i).printUnos()<<endl;
+  ofileTH.close();
+
+ ofstream ofileUH("ukhistorija.txt");
+   for(int i=0;i<UkupnaH.getLH().velicina();i++)
+     ofileUH<<UkupnaH.getLH().dohvatiEl(i).printUnos()<<endl;
+  ofileUH.close();
 
   return 0;
 }
