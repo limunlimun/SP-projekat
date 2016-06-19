@@ -221,8 +221,8 @@ int main(){
     int ind;
     string pretrazi;
     int serijski;
-    int temp;
-
+    int temp=0;
+    
     switch(odabir){
       case 1 : Videoteka.print();
                cout<<endl;
@@ -290,9 +290,12 @@ int main(){
                 cin.clear();
                 cin>>jmbg;
                 for(int i=0;i<TrenutnaH.getLH().velicina();i++){
-                  if(TrenutnaH.getLH().dohvatiEl(i).getJM()==jmbg)
+                  if(TrenutnaH.getLH().dohvatiEl(i).getJM()==jmbg){
+                    temp++;
                     cout<<"Serijski broj podignutog filma: "<<TrenutnaH.getLH().dohvatiEl(i).getSer()<<endl;
                 }
+                }
+                if(temp==0) cout<<"Korisnik je vratio sve filmove."<<endl;
                 break;
       case 13 : //pregled historije posudjivanja
                 cout<<"Unesite JMBG korisnika: ";
@@ -377,6 +380,11 @@ if(menu==2){
                }
                break;
       case 5 : //metod za vracanje filma
+               temp=Clanovi.pretragaKorisnikaJMBG(lozinka);
+               if(Clanovi.getBaza().dohvatiEl(temp).getBrPF()<1){
+                 cout<<"Nemate iznajmljenih filmova."<<endl;
+                 break;
+               }
                serijski=Clanovi.vratiFilm(Videoteka,lozinka);
                if(serijski!=-1){
                  h.setJM(lozinka);
