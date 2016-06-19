@@ -16,9 +16,9 @@ class Datum{
     int getMjesec(){return _mjesec;}
     int getGodina(){return _godina;}
     
-    void setDan(int j){_dan=j;}
-	void setMjesec(int j){_mjesec=j;}
-    void setGodina(int j){_godina=j;}
+    void setDan(int j){this->_dan=j;}
+	void setMjesec(int j){this->_mjesec=j;}
+    void setGodina(int j){this->_godina=j;}
     
     bool operator>(const Datum& x)
     {

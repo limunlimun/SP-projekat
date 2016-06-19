@@ -39,17 +39,17 @@ class Osoba{
   _jmbg=std::move(o._jmbg);
 	}
 
-	std::string getIme(){return _ime;};
+	std::string& getIme(){return this->_ime;};
 	
-	std::string getPrezime(){return _prezime;}
+	std::string& getPrezime(){return this->_prezime;}
 	
-  std::string getJMBG(){return _jmbg;}
+  std::string& getJMBG(){return this->_jmbg;}
 	
-	void setIme(std::string x) { _ime=x;	}
+	void setIme(std::string x) { this->_ime=x;	}
 	
-	void setPrezime(std::string x) {_prezime=x;	}
+	void setPrezime(std::string x) {this->_prezime=x;	}
 	
-	void setJMBG(std::string x)	{_jmbg=x;	}
+	void setJMBG(std::string x)	{this->_jmbg=x;	}
 	
 	void printOsoba(){
   std::cout<<_ime<<" "<<_prezime;

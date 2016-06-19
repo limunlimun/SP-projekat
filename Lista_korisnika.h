@@ -262,7 +262,7 @@ void ListaKorisnika::azuriranjeKorisnika(std::string x)
 
 void ListaKorisnika::sortDatum()
 {
-	for(int i=0;i<_database.maxVelicina()-1;i++)
+	for(int i=0;i<_database.velicina();i++)
 	{
 		if(_database.dohvatiEl(i)>_database.dohvatiEl(i+1))
 		std::swap(_database.dohvatiEl(i),_database.dohvatiEl(i+1));
@@ -278,7 +278,7 @@ void ListaKorisnika::sortDatum()
 
 void ListaKorisnika::sortAlfa()
 {
-	for(int i=0;i<_database.maxVelicina()-1;i++)
+	for(int i=0;i<_database.velicina();i++)
 	{
 		if(_database.dohvatiEl(i).getOsoba()>_database.dohvatiEl(i+1).getOsoba())
 		std::swap(_database.dohvatiEl(i),_database.dohvatiEl(i+1));

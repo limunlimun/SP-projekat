@@ -12,6 +12,12 @@ using namespace std;
 int ss =1000;
 int poc=1;
 
+string pd[]={"01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"};
+string pm[]={"01","02","03","04","05","06","07","08","09","10","11","12"};
+string pg[]={"990","991","992","993","994","995","996","997","998","999"};
+string pn[]={"180","185"};
+string pn2[]={"070","071","072","073","074","075","076","077","078","079","080","081","082","083","084","085","086","087","088","089"};
+
 vector<Osoba> rastaviOsobe(string lista){
   stringstream x(lista);
   string novi;
@@ -110,6 +116,18 @@ int main(){
   Korisnik priv;
   while(getline(infile,red)){
     priv=kreirajKorisnika(red);
+    string J;
+    int dd=rand() % 27;
+    int mm=rand() % 11;
+    int gg=rand() % 9;
+    int nn=rand() % 1;
+    int nn2=rand() % 19;
+    dd++;
+    mm++;
+    gg++;
+    nn2++;
+    J=pd[dd]+pm[mm]+pg[gg]+pn[nn]+pn2[nn2];
+    priv.getOsoba().setJMBG(J);
     Clanovi.dodajKorisnika(priv);
   }
   infile.close();
@@ -317,6 +335,7 @@ if(menu==2){
     string pretrazi;
     int temp;
     int serijski;
+    int brojac=0;
 
     switch(odabir){
       case 1 : Videoteka.print();
@@ -355,8 +374,32 @@ if(menu==2){
                  TrenutnaH.obrisiUnos(h);
                }
                break;
-      case 6 : break;
-      case 7 : break;
+      case 6 : //pregled svoje historije
+               for(int i=0;i<UkupnaH.getLH().velicina();i++){
+                 if(UkupnaH.getLH().dohvatiEl(i).getJM()==lozinka)
+                   brojac++;
+               }
+               cout<<"Pronadjenih unosa: "<<brojac<<endl;
+               if(brojac){
+                 for(int i=0;i<UkupnaH.getLH().velicina();i++){
+                   if(UkupnaH.getLH().dohvatiEl(i).getJM()==lozinka)
+                     cout<<"Serijski broj filma: "<<UkupnaH.getLH().dohvatiEl(i).getSer()<<endl;
+                 }
+               }
+
+               break;
+      case 7 : //pregled trenuno podignutih filmova
+               for(int i=0;i<TrenutnaH.getLH().velicina();i++){
+                 if(TrenutnaH.getLH().dohvatiEl(i).getJM()==lozinka)
+                   brojac++;
+               }
+               cout<<"Pronadjenih unosa: "<<brojac<<endl;
+               if(brojac){
+                 for(int i=0;i<TrenutnaH.getLH().velicina();i++){
+                   cout<<"Serijski broj filma: "<<TrenutnaH.getLH().dohvatiEl(i).getSer()<<endl;
+                 }
+               }
+               break;
       case 8 : cout<<"Dodjite nam opet :)"<<endl;
                izlaz=1;
                cout<<endl;

@@ -58,15 +58,15 @@ class Film{
     unsigned int getBrKopija(){return broj_kopija;}
     int getSerijski(){return serijski;}
 
-    void setNaziv(std::string x){_naziv=x;}
-    void setOpis(std::string x){_opis=x;}
-    void setReziser(Osoba x){_reziser=x;}
-    void setProducenti(ListaNizom<Osoba> x){lista_producenata=x;}
-    void setScenaristi(ListaNizom<Osoba> x){lista_scenarista=x;}
-    void setGlumci(ListaNizom<Osoba> x){lista_glumaca=x;}
-    void setKompanija(std::string x){prod_komp=x;}
-    void setGodIzd(int x){god_izdavanja=x;}
-    void setBrKopija(int x){broj_kopija=x;}
+    void setNaziv(std::string x){this->_naziv=x;}
+    void setOpis(std::string x){this->_opis=x;}
+    void setReziser(Osoba x){this->_reziser=x;}
+    void setProducenti(ListaNizom<Osoba> x){this->lista_producenata=x;}
+    void setScenaristi(ListaNizom<Osoba> x){this->lista_scenarista=x;}
+    void setGlumci(ListaNizom<Osoba> x){this->lista_glumaca=x;}
+    void setKompanija(std::string x){this->prod_komp=x;}
+    void setGodIzd(int x){this->god_izdavanja=x;}
+    void setBrKopija(int x){this->broj_kopija=x;}
     void setSerijski(int x){this->serijski=x;}
 	void operator=(const Film& x)
 	{
