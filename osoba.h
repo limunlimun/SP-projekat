@@ -55,13 +55,26 @@ class Osoba{
   std::cout<<_ime<<" "<<_prezime;
   }
   
-
+  std::ostream& operator<<(std::ostream& out)
+  {
+  	out<<this->_ime<<" "<<this->_prezime<<"\t"<<this->_jmbg<<std::endl;
+  }
+  
   bool operator==(const Osoba& x)
   {
   	if(_ime==x._ime && x._prezime==_prezime && x._jmbg==_jmbg)
   	return true;
   	else 
 	  return false;
+  }
+  
+  bool operator>(const Osoba& x)
+  {
+  	if(_prezime>x._prezime)
+  	return true;
+  	else 
+  	return false;
+  	
   }
 };
 
