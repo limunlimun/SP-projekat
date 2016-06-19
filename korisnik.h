@@ -17,8 +17,8 @@ class Korisnik{
 	void setdatum(const Datum& x){datum=x;	}
 	void setBrPF(int x){brPosFilmova=x;}
    
-    Osoba getOsoba(){return osoba;}
-    Datum getDatum(){return datum;}
+    Osoba& getOsoba(){return this->osoba;}
+    Datum& getDatum(){return this->datum;}
     int getBrPF(){return brPosFilmova;}
     
     bool operator>(const Korisnik& x)
@@ -47,6 +47,7 @@ class Korisnik{
   std::string ispis(){
     std::string povratni;
     povratni+=osoba.getPrezime()+';'+osoba.getIme()+';';
+    povratni+=osoba.getJMBG()+';';
     std::stringstream a;
     std::stringstream b;
     std::stringstream c;

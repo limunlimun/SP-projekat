@@ -152,7 +152,7 @@ void ListaKorisnika::kreirajKorisnika()
 	cin>>j;
 	novi.getDatum().setGodina(j);
 	
-	if(pretragaKorisnika(novi.getOsoba().getIme())==-1&& pretragaKorisnika(novi.getOsoba().getJMBG())==-1)
+	if(pretragaKorisnika(novi.getOsoba().getIme())==-1&& pretragaKorisnikaJMBG(novi.getOsoba().getJMBG())==-1)
 	dodajKorisnika(novi);
 	else
 	std::cout<<"Korisnik vec postoji u bazi podataka"<<std::endl;
@@ -222,36 +222,39 @@ void ListaKorisnika::azuriranjeKorisnika(std::string x)
     return ;
   }
 	std::cout<<"Koji aspekt zelite azurirati?"<<std::endl;
-	std::cout<<"1.Datum\n2.Ime\3.Prezime\4.Broj posudjenih filmova"<<std::endl;
-	int izbor;
+  std::cout<<"1.Ime"<<endl;
+  std::cout<<"2.Prezime"<<endl;
+  std::cout<<"3.Datum"<<endl;
+ 	int izbor;
 	std::string g;
 	int j;
 	cin>>izbor;
 	switch (izbor)
 	{
-		case 1:
-				
-				cin>>j;
+		case 3:
+      std::cout<<"Unesite datum u formatu: dan mjesec godina "<<endl;
+      cin.clear();
+      std::cin>>j;
 				_database.dohvatiEl(in).getDatum().setDan(j);
-				cin>>j;
+        std::cin.clear();
+        std::cin>>j;
 				_database.dohvatiEl(in).getDatum().setMjesec(j);
-				cin>>j;
+        std::cin.clear();
+        std::cin>>j;
 				_database.dohvatiEl(in).getDatum().setGodina(j);
 				break;
-		case 2:
-			
+		case 1:
+			cout<<"Unesite ime: ";
 			cin>>g;
 			_database.dohvatiEl(in).getOsoba().setIme(g);
 			break;
-		case 3:
-			
-			cin>>g;
+		case 2:
+      std::cin>>g;
 			_database.dohvatiEl(in).getOsoba().setPrezime(g);
-		case 4:
-			cin>>j;
-			_database.dohvatiEl(in).getOsoba().setPrezime(g);
+		  break;
 		default:
 			std::cout<<"Opcija nije validna!"<<std::endl;
+      break;
 			
 			
 				

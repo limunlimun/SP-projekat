@@ -58,6 +58,7 @@ class Osoba{
   std::ostream& operator<<(std::ostream& out)
   {
   	out<<this->_ime<<" "<<this->_prezime<<"\t"<<this->_jmbg<<std::endl;
+    return out;
   }
   
   bool operator==(const Osoba& x)

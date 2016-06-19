@@ -114,9 +114,10 @@ int main(){
   }
   string red;
   Korisnik priv;
+  string J;
   while(getline(infile,red)){
     priv=kreirajKorisnika(red);
-    string J;
+    
     int dd=rand() % 27;
     int mm=rand() % 11;
     int gg=rand() % 9;
@@ -213,7 +214,8 @@ int main(){
     cout<<"11. Azuriranje korisnika"<<endl;
     cout<<"12. Pregled posudjenih filmova za odredjenog korisnika"<<endl;
     cout<<"13. Pregled historije posudjivanja za odredjenog korisnika"<<endl;
-    cout<<"14. Izlaz iz programa"<<endl;
+    cout<<"14. Korisnicki interface"<<endl;
+    cout<<"15. Izlaz iz programa"<<endl;
     cout<<endl<<"Unesite broj odabrane opcije: ";
     cin.clear();
     cin>>odabir;
@@ -254,17 +256,12 @@ int main(){
                Videoteka.azurirajFilm(serijski);
                cout<<endl;
                break;
-      case 7 : cout<<"Unesite ime i prezime korisnika: ";
-               cin.clear();
-               cin>>ime>>prezime;
-               ind=Clanovi.pretragaKorisnika2(ime,prezime);
-               if(ind==-1)
-                 cout<<"Korisnike nije pronadjen!"<<endl;
-               else
-                 cout<<prezime<<" "<<ime<<" "<<Clanovi.getBaza().dohvatiEl(ind).getOsoba().getJMBG()<<endl;
-
+      case 7 : cout<<endl<<"Ime i JMBG korisnika:"<<endl;
+               for(int i=0;i<Clanovi.brojClanova();i++)
+                 cout<<Clanovi.getBaza().dohvatiEl(i).getOsoba().getIme()<<" "<<Clanovi.getBaza().dohvatiEl(i).getOsoba().getJMBG()<<endl;
+               cout<<endl;
                break;
-      case 8 : cout<<"Unesite ime i prezime korisnika: ";
+      case 8 : cout<<"Unesite ime i jmbg korisnika: ";
                cin.clear();
                cin>>ime>>prezime;
                ind=Clanovi.pretragaKorisnika2(ime,prezime);
@@ -302,7 +299,16 @@ int main(){
                     cout<<"Serijski broj podignutog filma: "<<UkupnaH.getLH().dohvatiEl(i).getSer()<<endl;
                 }
                 break;
-      case 14 : izlaz=1;
+      case 14 : cout<<"Unesite ime i JMBG: ";
+                cin.clear();
+                cin>>ime>>lozinka;
+                if(Clanovi.pretragaKorisnika2(ime,lozinka)!=-1){
+                  menu=2;
+                  indCl=Clanovi.pretragaKorisnika2(ime,lozinka);
+                  cout<<endl<<ime<<" , dobrodosli u videoteku "<<Videoteka.getImeV()<<endl;
+                }
+
+      case 15 : izlaz=1;
                 break;
       default : cout<<"Pogresan unos. Program se terminira!"<<endl;
                 izlaz=1;
