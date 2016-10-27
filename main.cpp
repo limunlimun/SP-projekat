@@ -2,6 +2,7 @@
 #include "lista_filmova.h"
 #include "Lista_korisnika.h"
 #include "lista_historija.h"
+#include "interface.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -204,23 +205,7 @@ int main(){
   int izlaz=0;
   int odabir=0;
   while(izlaz!=1){
-    cout<<endl<<endl;
-    cout<<"Ponudjenje opcije:"<<endl;
-    cout<<" 1. Pregled sadrzaja videoteke"<<endl;
-    cout<<" 2. Pretraga videoteke po nazivu filma"<<endl;
-    cout<<" 3. Ispis svih podataka za odabrani film"<<endl;
-    cout<<" 4. Dodavanje novog filma"<<endl;
-    cout<<" 5. Brisanje filma iz videoteke"<<endl;
-    cout<<" 6. Azuriraj postojeci film"<<endl;
-    cout<<" 7. Pregled korisnika"<<endl;
-    cout<<" 8. Pretraga korisnika"<<endl;
-    cout<<" 9. Dodavanje korisnika"<<endl;
-    cout<<"10. Brisanje korisnika"<<endl;
-    cout<<"11. Azuriranje korisnika"<<endl;
-    cout<<"12. Pregled posudjenih filmova za odredjenog korisnika"<<endl;
-    cout<<"13. Pregled historije posudjivanja za odredjenog korisnika"<<endl;
-    cout<<"14. Korisnicki interface"<<endl;
-    cout<<"15. Izlaz iz programa"<<endl;
+    interfaceadmin();
     cout<<endl<<"Unesite broj odabrane opcije: ";
     cin.clear();
     cin>>odabir;
@@ -357,16 +342,7 @@ if(menu==2){
   int odabir=0;
   //opcije dostupne korisniku
   while(izlaz!=1){
-    cout<<endl<<endl;
-    cout<<"Ponudjene opcije: "<<endl;
-    cout<<"1. Pregled sadrzaja videoteke"<<endl;
-    cout<<"2. Pretraga po nazivu filma"<<endl;
-    cout<<"3. Ispis svih podataka za odabrani film"<<endl;
-    cout<<"4. Posudi film"<<endl;
-    cout<<"5. Vrati film"<<endl;
-    cout<<"6. Pregled svoje historije posudjivanja filmova"<<endl;
-    cout<<"7. Pregled trenutne liste posudjenih filmova"<<endl;
-    cout<<"8. Izlaz iz programa"<<endl;
+    interfacekorisnik();
     cout<<endl<<"Unesite broj odabrane opcije: ";
     cin.clear();
     cin>>odabir;
